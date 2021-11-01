@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Shiftify</string>
+    <string name="welcome_message">Welcome to Shiftify</string>
+    <string name="email_label_text">email</string>
+    <string name="password_label_text">password</string>
 </resources>
