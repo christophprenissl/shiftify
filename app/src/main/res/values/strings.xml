@@ -3,4 +3,5 @@
     <string name="welcome_message">Welcome to Shiftify</string>
     <string name="email_label_text">email</string>
     <string name="password_label_text">password</string>
+    <string name="login_button_label">Login</string>
 </resources>
