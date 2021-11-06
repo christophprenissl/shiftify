@@ -9,5 +9,12 @@
         android:id="@+id/nurseShiftsFragment"
         android:name="com.example.shiftify.nurse.NurseShiftsFragment"
         android:label="fragment_nurse_shifts"
-        tools:layout="@layout/fragment_nurse_shifts" />
+        tools:layout="@layout/fragment_nurse_shifts" >
+    </fragment>
+    <fragment
+        android:id="@+id/stationFragment"
+        android:name="com.example.shiftify.nurse.StationFragment"
+        android:label="fragment_station"
+        tools:layout="@layout/fragment_station" >
+    </fragment>
 </navigation>
