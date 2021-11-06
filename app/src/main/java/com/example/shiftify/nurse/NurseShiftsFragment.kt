@@ -5,20 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.shiftify.R
-import com.example.shiftify.databinding.FragmentNurseViewBinding
+import com.example.shiftify.databinding.FragmentNurseShiftsBinding
 
-class NurseViewFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+class NurseShiftsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentNurseViewBinding.inflate(inflater, container, false)
+        val binding = FragmentNurseShiftsBinding.inflate(inflater, container, false)
         return binding.root
     }
 }

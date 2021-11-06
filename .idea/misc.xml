@@ -3,11 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_logged_out.xml" value="0.32708333333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_nurse.xml" value="0.32708333333333334" />
+        <entry key="app/src/main/res/layout/activity_shift_owner.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_nurse_shifts.xml" value="0.32708333333333334" />
         <entry key="app/src/main/res/layout/fragment_nurse_view.xml" value="0.1765625" />
+        <entry key="app/src/main/res/layout/fragment_nurses_shifts.xml" value="0.1765625" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.1765625" />
+        <entry key="app/src/main/res/layout/fragment_role_choice.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/fragment_station_owner_view.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/fragment_test.xml" value="0.32708333333333334" />
+        <entry key="app/src/main/res/menu/nurse_bottom_nav_menu.xml" value="0.32708333333333334" />
       </map>
     </option>
   </component>

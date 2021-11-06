@@ -11,7 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shiftify">
         <activity
-            android:name=".MainActivity"
+            android:name=".shiftowner.ShiftOwnerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".nurse.NurseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".loggedout.LoggedOutActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

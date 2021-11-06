@@ -4,14 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.LoginFragment">
+    tools:context=".loggedout.LoginFragment">
 
     <TextView
         android:id="@+id/welcome_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50pt"
-        android:text="@string/welcome_message"
+        android:text="@string/welcome_label_text"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
         android:id="@+id/login_nurse_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_button_label"
+        android:text="Login Nurse"
         tools:layout_editor_absoluteX="160dp"
         tools:layout_editor_absoluteY="406dp"
         android:layout_marginTop="30dp"
@@ -73,12 +73,23 @@
         android:id="@+id/login_station_owner_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_button_label"
+        android:text="Login Owner"
         tools:layout_editor_absoluteX="160dp"
         tools:layout_editor_absoluteY="406dp"
         android:layout_marginTop="30dp"
         app:layout_constraintTop_toBottomOf="@id/password_edit"
         app:layout_constraintStart_toEndOf="@id/login_nurse_button"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_button_label"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="406dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@id/login_station_owner_button"
+        app:layout_constraintEnd_toEndOf="@id/login_station_owner_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
