@@ -14,6 +14,7 @@ class NurseShiftsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentNurseShiftsBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 }

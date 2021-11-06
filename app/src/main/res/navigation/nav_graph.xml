@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.shiftify.loggedout.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_nurseShiftsFragment"
+            app:destination="@id/nurseShiftsFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_roleChoiceFragment"
+            app:destination="@id/roleChoiceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.shiftify.loggedout.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/nurseShiftsFragment"
+        android:name="com.example.shiftify.nurse.NurseShiftsFragment"
+        android:label="fragment_nurse_shifts"
+        tools:layout="@layout/fragment_nurse_shifts" />
+    <fragment
+        android:id="@+id/roleChoiceFragment"
+        android:name="com.example.shiftify.shiftowner.RoleChoiceFragment"
+        android:label="fragment_role_choice"
+        tools:layout="@layout/fragment_role_choice" >
+        <action
+            android:id="@+id/action_roleChoiceFragment_to_nursesShiftsFragment"
+            app:destination="@id/nursesShiftsFragment" />
+        <action
+            android:id="@+id/action_roleChoiceFragment_to_nurseShiftsFragment"
+            app:destination="@id/nurseShiftsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nursesShiftsFragment"
+        android:name="com.example.shiftify.shiftowner.NursesShiftsFragment"
+        android:label="fragment_nurses_shifts"
+        tools:layout="@layout/fragment_nurses_shifts" />
+    <fragment
+        android:id="@+id/stationFragment"
+        android:name="com.example.shiftify.nurse.StationFragment"
+        android:label="fragment_station"
+        tools:layout="@layout/fragment_station" />
+</navigation>

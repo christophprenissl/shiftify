@@ -10,5 +10,6 @@
     <string name="choose_role_label_text">Choose role</string>
     <string name="shift_owner_button_text">Shift owner</string>
     <string name="nurse_button_text">Nurse</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

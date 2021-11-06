@@ -1,6 +1,5 @@
 package com.example.shiftify.loggedout
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.shiftify.R
 import com.example.shiftify.databinding.FragmentLoginBinding
-import com.example.shiftify.nurse.NurseActivity
 
 class LoginFragment : Fragment() {
 
@@ -21,8 +19,7 @@ class LoginFragment : Fragment() {
         val navController = findNavController()
 
         binding.loginNurseButton.setOnClickListener {
-            val intent = Intent(activity, NurseActivity::class.java)
-            startActivity(intent)
+            navController.navigate(R.id.action_loginFragment_to_nurseShiftsFragment)
         }
 
         binding.loginStationOwnerButton.setOnClickListener {
