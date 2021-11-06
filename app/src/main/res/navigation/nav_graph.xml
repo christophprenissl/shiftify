@@ -8,5 +8,22 @@
         android:id="@+id/loginFragment"
         android:name="com.example.shiftify.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_stationOwnerViewFragment"
+            app:destination="@id/stationOwnerViewFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_nurseViewFragment"
+            app:destination="@id/nurseViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nurseViewFragment"
+        android:name="com.example.shiftify.nurse.NurseViewFragment"
+        android:label="fragment_nurse_view"
+        tools:layout="@layout/fragment_nurse_view" />
+    <fragment
+        android:id="@+id/stationOwnerViewFragment"
+        android:name="com.example.shiftify.stationowner.StationOwnerViewFragment"
+        android:label="fragment_station_owner_view"
+        tools:layout="@layout/fragment_station_owner_view" />
 </navigation>
