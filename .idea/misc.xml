@@ -8,6 +8,8 @@
         <entry key="app/src/main/res/layout/activity_nurse.xml" value="0.32708333333333334" />
         <entry key="app/src/main/res/layout/activity_shift_owner.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.178125" />
+        <entry key="app/src/main/res/layout/fragment_create_poll_entity.xml" value="0.21240942028985507" />
+        <entry key="app/src/main/res/layout/fragment_edit_station.xml" value="0.21240942028985507" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_nurse_shifts.xml" value="0.32708333333333334" />
         <entry key="app/src/main/res/layout/fragment_nurse_view.xml" value="0.1765625" />
@@ -18,6 +20,8 @@
         <entry key="app/src/main/res/layout/fragment_station_owner_view.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/fragment_test.xml" value="0.32708333333333334" />
         <entry key="app/src/main/res/menu/nurse_bottom_nav_menu.xml" value="0.32708333333333334" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.19322916666666667" />
       </map>
     </option>
   </component>
