@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.shiftify.loggedout.LoginFragment"
+        android:name="com.christophprenissl.shiftify.loggedout.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.shiftify.loggedout.RegisterFragment"
+        android:name="com.christophprenissl.shiftify.loggedout.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/nurseShiftsFragment"
-        android:name="com.example.shiftify.nurse.NurseShiftsFragment"
+        android:name="com.christophprenissl.shiftify.nurse.NurseShiftsFragment"
         android:label="fragment_nurse_shifts"
         tools:layout="@layout/fragment_nurse_shifts" >
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/roleChoiceFragment"
-        android:name="com.example.shiftify.shiftowner.RoleChoiceFragment"
+        android:name="com.christophprenissl.shiftify.shiftowner.RoleChoiceFragment"
         android:label="fragment_role_choice"
         tools:layout="@layout/fragment_role_choice" >
         <action
@@ -62,12 +62,12 @@
     </fragment>
     <fragment
         android:id="@+id/stationFragment"
-        android:name="com.example.shiftify.nurse.StationFragment"
+        android:name="com.christophprenissl.shiftify.nurse.StationFragment"
         android:label="fragment_station"
         tools:layout="@layout/fragment_station" />
     <fragment
         android:id="@+id/nursesShiftsFragment"
-        android:name="com.example.shiftify.shiftowner.NursesShiftsFragment"
+        android:name="com.christophprenissl.shiftify.shiftowner.NursesShiftsFragment"
         android:label="fragment_nurses_shifts"
         tools:layout="@layout/fragment_nurses_shifts" >
         <action
@@ -79,12 +79,12 @@
     </fragment>
     <fragment
         android:id="@+id/createPollEntityFragment"
-        android:name="com.example.shiftify.shiftowner.CreatePollEntityFragment"
+        android:name="com.christophprenissl.shiftify.shiftowner.CreatePollEntityFragment"
         android:label="fragment_create_poll_entity"
         tools:layout="@layout/fragment_create_poll_entity" />
     <fragment
         android:id="@+id/editStationFragment"
-        android:name="com.example.shiftify.shiftowner.EditStationFragment"
+        android:name="com.christophprenissl.shiftify.shiftowner.EditStationFragment"
         android:label="fragment_edit_station"
         tools:layout="@layout/fragment_edit_station" />
 </navigation>

@@ -1,11 +1,11 @@
-package com.example.shiftify.shiftowner
+package com.christophprenissl.shiftify.shiftowner
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.shiftify.databinding.FragmentEditStationBinding
+import com.christophprenissl.shiftify.databinding.FragmentEditStationBinding
 
 class EditStationFragment: Fragment() {
 

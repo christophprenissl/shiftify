@@ -1,4 +1,4 @@
-package com.example.shiftify.loggedout
+package com.christophprenissl.shiftify.loggedout
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.shiftify.R
-import com.example.shiftify.databinding.FragmentRegisterBinding
+import com.christophprenissl.shiftify.R
+import com.christophprenissl.shiftify.databinding.FragmentRegisterBinding
 
 class RegisterFragment : Fragment() {
 

@@ -1,20 +1,19 @@
-package com.example.shiftify.nurse
+package com.christophprenissl.shiftify.shiftowner
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.shiftify.databinding.FragmentNurseShiftsBinding
+import com.christophprenissl.shiftify.databinding.FragmentCreatePollEntityBinding
 
-class NurseShiftsFragment : Fragment() {
+class CreatePollEntityFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentNurseShiftsBinding.inflate(inflater, container, false)
-
+        val binding = FragmentCreatePollEntityBinding.inflate(inflater, container, false)
         return binding.root
     }
 }

@@ -1,14 +1,9 @@
-package com.example.shiftify
+package com.christophprenissl.shiftify
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.children
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.shiftify.databinding.ActivityMainBinding
+import com.christophprenissl.shiftify.databinding.ActivityMainBinding
 import timber.log.Timber
-import timber.log.Timber.d
-import timber.log.Timber.i
 
 class MainActivity : AppCompatActivity() {
 
