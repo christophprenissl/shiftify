@@ -2,14 +2,22 @@
     <string name="app_name">Shiftify</string>
     <string name="welcome_label_text">Welcome to Shiftify</string>
     <string name="email_label_text">email</string>
+    <string name="first_name_label_text">first name</string>
     <string name="password_label_text">password</string>
     <string name="login_button_label_text">Login</string>
     <string name="register_button_label">Register</string>
     <string name="shifts_menu_item_title">Shifts</string>
     <string name="station_menu_item_title">Station</string>
     <string name="choose_role_label_text">Choose role</string>
-    <string name="shift_owner_button_text">Shift owner</string>
-    <string name="nurse_button_text">Nurse</string>
+    <string name="shift_owner_text">Shift owner</string>
+    <string name="nurse_text">Nurse</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="last_name_label_text">last name</string>
+    <string name="password2_label_text">password repeat</string>
+    <string name="password1_label_text">password</string>
+    <string name="register_button_text">Register</string>
+    <string name="login_button_text">Login</string>
+    <string name="station_code_label">station code</string>
+    <string name="station_name_label">station name</string>
 
 </resources>

@@ -7,36 +7,196 @@
     android:layout_height="match_parent"
     tools:context="com.christophprenissl.shiftify.loggedout.RegisterFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello Register"
-        app:layout_constraintBottom_toTopOf="@+id/register_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@color/purple_200">
 
-    <Button
-        android:id="@+id/register_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/role_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="Nurse"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_button" />
+            <TextView
+                android:id="@+id/welcome_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_label_text"
+                android:textSize="@dimen/header_font_size"
+                android:layout_marginTop="@dimen/standard_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/email_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email_label_text"
+                android:layout_marginTop="@dimen/to_header_margin"
+                android:labelFor="@id/email_edit"
+                app:layout_constraintStart_toStartOf="@id/email_edit"
+                app:layout_constraintTop_toBottomOf="@id/welcome_label" />
+
+            <EditText
+                android:id="@+id/email_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="john.doe@abc.com"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="@id/welcome_label"
+                app:layout_constraintStart_toStartOf="@id/welcome_label"
+                app:layout_constraintTop_toBottomOf="@id/email_label" />
+
+            <TextView
+                android:id="@+id/first_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/first_name_label_text"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:labelFor="@id/first_name_edit"
+                app:layout_constraintStart_toStartOf="@id/first_name_edit"
+                app:layout_constraintTop_toBottomOf="@id/email_edit" />
+
+            <EditText
+                android:id="@+id/first_name_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="John"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="@id/welcome_label"
+                app:layout_constraintStart_toStartOf="@id/welcome_label"
+                app:layout_constraintTop_toBottomOf="@id/first_name_label" />
+
+            <TextView
+                android:id="@+id/last_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/last_name_label_text"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:labelFor="@id/last_name_edit"
+                app:layout_constraintStart_toStartOf="@id/first_name_edit"
+                app:layout_constraintTop_toBottomOf="@id/first_name_edit" />
+
+            <EditText
+                android:id="@+id/last_name_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="Doe"
+                android:inputType="text"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="@id/welcome_label"
+                app:layout_constraintStart_toStartOf="@id/welcome_label"
+                app:layout_constraintTop_toBottomOf="@id/last_name_label" />
+
+            <TextView
+                android:id="@+id/password1_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/password1_label_text"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:labelFor="@id/password1_edit"
+                app:layout_constraintStart_toStartOf="@id/first_name_edit"
+                app:layout_constraintTop_toBottomOf="@id/last_name_edit" />
+
+            <EditText
+                android:id="@+id/password1_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="John"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="@id/welcome_label"
+                app:layout_constraintStart_toStartOf="@id/welcome_label"
+                app:layout_constraintTop_toBottomOf="@id/password1_label" />
+
+            <TextView
+                android:id="@+id/password2_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/password2_label_text"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:labelFor="@id/password2_edit"
+                app:layout_constraintStart_toStartOf="@id/first_name_edit"
+                app:layout_constraintTop_toBottomOf="@id/password1_edit" />
+
+            <EditText
+                android:id="@+id/password2_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="John"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="@id/welcome_label"
+                app:layout_constraintStart_toStartOf="@id/welcome_label"
+                app:layout_constraintTop_toBottomOf="@id/password2_label" />
+
+            <RadioGroup
+                android:id="@+id/identity_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkedButton="@id/nurse_radio_button"
+                app:layout_constraintTop_toBottomOf="@id/password2_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <RadioButton
+                    android:id="@+id/nurse_radio_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nurse_text"
+                    android:layout_gravity="center_horizontal"/>
+
+                <RadioButton
+                    android:id="@+id/shift_owner_radio_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/shift_owner_text"
+                    android:layout_gravity="center_horizontal"/>
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/station_id_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/station_code_label"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:labelFor="@id/station_id_edit"
+                app:layout_constraintStart_toStartOf="@id/identity_radio_group"
+                app:layout_constraintTop_toBottomOf="@id/identity_radio_group" />
+
+            <EditText
+                android:id="@+id/station_id_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="John"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                app:layout_constraintEnd_toEndOf="@id/welcome_label"
+                app:layout_constraintStart_toStartOf="@id/welcome_label"
+                app:layout_constraintTop_toBottomOf="@id/station_id_label" />
+
+
+
+            <Button
+                android:id="@+id/register_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_button_text"
+                android:layout_marginTop="@dimen/to_text_edit_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                app:layout_constraintTop_toBottomOf="@id/station_id_edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

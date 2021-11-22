@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "544310968196",
+    "project_id": "shiftify-6af07",
+    "storage_bucket": "shiftify-6af07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544310968196:android:56d9de98601ec40dfb27d1",
+        "android_client_info": {
+          "package_name": "com.christophprenissl.shiftify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544310968196-61kjf9scpbcuji6drt2utnfuim77o2t3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSeEh6z3UWkxZyOdTaUEpjgxOWEYMH4hM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "544310968196-61kjf9scpbcuji6drt2utnfuim77o2t3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

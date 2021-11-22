@@ -8,8 +8,16 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentRegisterBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterFragment : Fragment() {
+
+    private lateinit var auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,22 +26,7 @@ class RegisterFragment : Fragment() {
         val binding = FragmentRegisterBinding.inflate(inflater, container, false)
         val navController = findNavController()
 
-        binding.roleButton.apply {
-            setOnClickListener {
-                if (this.text == "Nurse") {
-                    this.text = "Shift Owner"
-                } else {
-                    this.text = "Nurse"
-                }
-            }
-        }
-
         binding.registerButton.setOnClickListener {
-            if (binding.roleButton.text == "Shift Owner") {
-                navController.navigate(R.id.action_registerFragment_to_roleChoiceFragment)
-            } else {
-                navController.navigate(R.id.action_registerFragment_to_nurseShiftsFragment)
-            }
         }
 
         return binding.root

@@ -18,12 +18,8 @@ class LoginFragment : Fragment() {
         val binding = FragmentLoginBinding.inflate(inflater, container, false)
         val navController = findNavController()
 
-        binding.loginNurseButton.setOnClickListener {
-            navController.navigate(R.id.action_loginFragment_to_nurseShiftsFragment)
-        }
-
-        binding.loginShiftOwnerButton.setOnClickListener {
-            navController.navigate(R.id.action_loginFragment_to_roleChoiceFragment)
+        binding.loginButton.setOnClickListener {
+            //navController.navigate(R.id.action_loginFragment_to_nurseShiftsFragment)
         }
 
         binding.registerButton.setOnClickListener {

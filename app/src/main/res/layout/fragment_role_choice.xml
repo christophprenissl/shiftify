@@ -22,7 +22,7 @@
         android:id="@+id/shift_owner_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/shift_owner_button_text"
+        android:text="@string/shift_owner_text"
         app:layout_constraintBottom_toTopOf="@+id/nurse_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
         android:id="@+id/nurse_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nurse_button_text"
+        android:text="@string/nurse_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/shift_owner_button" />
