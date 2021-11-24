@@ -1,7 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
-    <dimen name="to_header_margin">64dp</dimen>
-    <dimen name="to_text_edit_margin">64dp</dimen>
+    <dimen name="to_header_margin">32dp</dimen>
+    <dimen name="to_text_edit_margin">40dp</dimen>
     <dimen name="header_font_size">32sp</dimen>
 </resources>
