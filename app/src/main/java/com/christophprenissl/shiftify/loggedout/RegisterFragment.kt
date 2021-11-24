@@ -9,12 +9,18 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentRegisterBinding
+import com.christophprenissl.shiftify.persistence.model.Nurse
+import com.christophprenissl.shiftify.utils.isEmail
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import timber.log.Timber.i
 
 class RegisterFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +29,7 @@ class RegisterFragment : Fragment() {
         val binding = FragmentRegisterBinding.inflate(inflater, container, false)
         val navController = findNavController()
         auth = FirebaseAuth.getInstance()
+        database = Firebase.database.reference
 
         binding.identityRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
@@ -36,17 +43,41 @@ class RegisterFragment : Fragment() {
         }
 
         binding.registerButton.setOnClickListener {
+            val isShiftOwner = binding.identityRadioGroup.checkedRadioButtonId == R.id.shift_owner_radio_button
+
+            if (!isShiftOwner) {
+                //TODO check if station code is correct and return if not
+            }
+
             val email = binding.emailEdit.text.toString()
             val firstName = binding.firstNameEdit.text.toString()
             val lastName = binding.lastNameEdit.text.toString()
             val password1 = binding.password1Edit.text.toString()
             val password2 = binding.password2Edit.text.toString()
-            val isNurse = binding.identityRadioGroup.checkedRadioButtonId == R.id.nurse_radio_button
             val stationEdit = binding.stationIdEdit.text.toString()
 
+            if (email.isEmpty()
+                || firstName.isEmpty()
+                || lastName.isEmpty()
+                || stationEdit.isEmpty()) {
+                Toast.makeText(context, "Some input is missing.",
+                    Toast.LENGTH_SHORT).show()
+            }
 
-            if (password1 != password2 && password1.length < 6) {
-                Toast.makeText(context, "Passwords don't match.",
+            if (!email.isEmail()) {
+                Toast.makeText(context, "$email is not a correct email address.",
+                    Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (password1.length < 6) {
+                Toast.makeText(context, "Password must at least have 6 characters.",
+                    Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (password1 != password2) {
+                Toast.makeText(context, "Passwords don't match .",
                     Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -55,10 +86,25 @@ class RegisterFragment : Fragment() {
             auth.createUserWithEmailAndPassword(email, password1)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        val user = auth.currentUser?.email ?: "user"
-                        i("$user was signed up correctly")
-                        navController.navigate(R.id.action_registerFragment_to_nurseShiftsFragment)
+                        auth.currentUser!!.let {
+                            i("$email was signed up correctly")
+                            val name = "$firstName $lastName"
+                            val newNurse = Nurse(
+                                it.uid,
+                                name,
+                                isShiftOwner,
+                                stationEdit
+                            )
+                            database.child("users").child(it.uid).setValue(newNurse)
+                                .addOnSuccessListener {
+                                    i("$name created in database.")
+                                    Toast.makeText(context, "Shiftify account created",
+                                        Toast.LENGTH_SHORT).show()
+                                    navController.navigate(R.id.action_registerFragment_to_nurseShiftsFragment)
+                                }
+                        }
                     } else {
+                        i(task.exception)
                         Toast.makeText(context, "Authentication failed. ${task.result}",
                             Toast.LENGTH_SHORT).show()
                     }

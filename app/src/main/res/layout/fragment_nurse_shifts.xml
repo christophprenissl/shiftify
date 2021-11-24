@@ -7,9 +7,10 @@
     tools:context="com.christophprenissl.shiftify.nurse.NurseShiftsFragment">
 
     <TextView
+        android:id="@+id/greeting_label"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello Nurse"
+        android:text="@string/hello_nurse_label"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

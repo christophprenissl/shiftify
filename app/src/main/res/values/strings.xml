@@ -19,5 +19,6 @@
     <string name="login_button_text">Login</string>
     <string name="station_code_label">station code</string>
     <string name="station_name_label">station name</string>
+    <string name="hello_nurse_label">Hello %$1s</string>
 
 </resources>
