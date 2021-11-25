@@ -47,6 +47,11 @@
         <action
             android:id="@+id/action_nurseShiftsFragment_to_stationFragment"
             app:destination="@id/stationFragment" />
+        <action
+            android:id="@+id/action_nurseShiftsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/roleChoiceFragment"
