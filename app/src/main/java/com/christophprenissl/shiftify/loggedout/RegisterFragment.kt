@@ -87,19 +87,26 @@ class RegisterFragment : Fragment() {
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
                         auth.currentUser!!.let {
-                            i("$email was signed up correctly")
-                            val name = "$firstName $lastName"
+                            i("$email was registered correctly")
                             val newNurse = Nurse(
                                 it.uid,
-                                name,
+                                lastName,
+                                firstName,
                                 isShiftOwner,
-                                stationEdit
-                            )
+                                stationEdit,
+                                null,
+                                null)
                             database.child("users").child(it.uid).setValue(newNurse)
                                 .addOnSuccessListener {
-                                    i("$name created in database.")
+                                    i("$firstName $lastName created in database.")
                                     Toast.makeText(context, "Shiftify account created",
                                         Toast.LENGTH_SHORT).show()
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(context, "user  data couldn't be created",
+                                        Toast.LENGTH_SHORT).show()
+                                }
+                                .addOnCompleteListener {
                                     navController.navigate(R.id.action_registerFragment_to_nurseShiftsFragment)
                                 }
                         }
