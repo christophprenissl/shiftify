@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentLoginBinding
+import com.christophprenissl.shiftify.utils.showSmallInfoToast
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
@@ -33,7 +34,36 @@ class LoginFragment : Fragment() {
         }
 
         binding.loginButton.setOnClickListener {
-            //navController.navigate(R.id.action_loginFragment_to_nurseShiftsFragment)
+            if (binding.emailEdit.text.isEmpty()) {
+                showSmallInfoToast(context, "Email address is missing.")
+                return@setOnClickListener
+            }
+
+            when (binding.passwordEdit.text.length) {
+                0 -> {
+                    showSmallInfoToast(context, "Password is missing")
+                    return@setOnClickListener
+                }
+                in 0..5 -> {
+                    showSmallInfoToast(context, "Password is too short")
+                    return@setOnClickListener
+                }
+            }
+
+            binding.loginButton.isActivated = false
+
+            auth.signInWithEmailAndPassword(binding.emailEdit.text.toString(),
+                binding.passwordEdit.text.toString())
+                .addOnFailureListener {
+                    showSmallInfoToast(context, "Error while signing in")
+                }
+                .addOnSuccessListener {
+                    navController.navigate(R.id.action_loginFragment_to_nurseShiftsFragment)
+                }
+                .addOnCompleteListener {
+                    binding.loginButton.isActivated = true
+                }
+
         }
 
         binding.registerButton.setOnClickListener {

@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentRegisterBinding
 import com.christophprenissl.shiftify.persistence.model.Nurse
 import com.christophprenissl.shiftify.utils.isEmail
+import com.christophprenissl.shiftify.utils.showSmallInfoToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
@@ -21,15 +23,23 @@ class RegisterFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
+    private lateinit var binding: FragmentRegisterBinding
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentRegisterBinding.inflate(inflater, container, false)
-        val navController = findNavController()
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        navController = findNavController()
         auth = FirebaseAuth.getInstance()
         database = Firebase.database.reference
+
+        if (auth.currentUser != null) {
+            navController.navigate(R.id.nav_graph)
+        } else {
+            binding.registerButton.isActivated = true
+        }
 
         binding.identityRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
@@ -43,81 +53,79 @@ class RegisterFragment : Fragment() {
         }
 
         binding.registerButton.setOnClickListener {
-            val isShiftOwner = binding.identityRadioGroup.checkedRadioButtonId == R.id.shift_owner_radio_button
-
-            if (!isShiftOwner) {
-                //TODO check if station code is correct and return if not
-            }
-
-            val email = binding.emailEdit.text.toString()
-            val firstName = binding.firstNameEdit.text.toString()
-            val lastName = binding.lastNameEdit.text.toString()
-            val password1 = binding.password1Edit.text.toString()
-            val password2 = binding.password2Edit.text.toString()
-            val stationEdit = binding.stationIdEdit.text.toString()
-
-            if (email.isEmpty()
-                || firstName.isEmpty()
-                || lastName.isEmpty()
-                || stationEdit.isEmpty()) {
-                Toast.makeText(context, "Some input is missing.",
-                    Toast.LENGTH_SHORT).show()
-            }
-
-            if (!email.isEmail()) {
-                Toast.makeText(context, "$email is not a correct email address.",
-                    Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (password1.length < 6) {
-                Toast.makeText(context, "Password must at least have 6 characters.",
-                    Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            if (password1 != password2) {
-                Toast.makeText(context, "Passwords don't match .",
-                    Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-
-            auth.createUserWithEmailAndPassword(email, password1)
-                .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        auth.currentUser!!.let {
-                            i("$email was registered correctly")
-                            val newNurse = Nurse(
-                                it.uid,
-                                lastName,
-                                firstName,
-                                isShiftOwner,
-                                stationEdit,
-                                null,
-                                null)
-                            database.child("users").child(it.uid).setValue(newNurse)
-                                .addOnSuccessListener {
-                                    i("$firstName $lastName created in database.")
-                                    Toast.makeText(context, "Shiftify account created",
-                                        Toast.LENGTH_SHORT).show()
-                                }
-                                .addOnFailureListener {
-                                    Toast.makeText(context, "user  data couldn't be created",
-                                        Toast.LENGTH_SHORT).show()
-                                }
-                                .addOnCompleteListener {
-                                    navController.navigate(R.id.action_registerFragment_to_nurseShiftsFragment)
-                                }
-                        }
-                    } else {
-                        i(task.exception)
-                        Toast.makeText(context, "Authentication failed. ${task.result}",
-                            Toast.LENGTH_SHORT).show()
-                    }
-                }
+            registerWhenValidRegistrationForm()
         }
 
         return binding.root
+    }
+
+    private fun registerWhenValidRegistrationForm() {
+        val isShiftOwner = binding.identityRadioGroup.checkedRadioButtonId == R.id.shift_owner_radio_button
+        val email = binding.emailEdit.text.toString()
+        val firstName = binding.firstNameEdit.text.toString()
+        val lastName = binding.lastNameEdit.text.toString()
+        val password1 = binding.password1Edit.text.toString()
+        val password2 = binding.password2Edit.text.toString()
+        val stationEdit = binding.stationIdEdit.text.toString()
+
+        if (email.isEmpty()
+            || firstName.isEmpty()
+            || lastName.isEmpty()
+            || stationEdit.isEmpty()) {
+            showSmallInfoToast(context, "Some input is missing.")
+            return
+        }
+
+        if (!email.isEmail()) {
+            showSmallInfoToast(context, "$email is not a correct email address.")
+            return
+        }
+
+        if (password1.length < 6) {
+            showSmallInfoToast(context, "Password must at least have 6 characters.")
+            return
+        }
+
+        if (password1 != password2) {
+            showSmallInfoToast(context, "Passwords don't match.")
+            return
+        }
+        val newNurse = Nurse (
+            null,
+            lastName,
+            firstName,
+            isShiftOwner,
+            stationEdit,
+            null,
+            null
+            )
+        registerNurse(email,password1, newNurse)
+    }
+
+    private fun registerNurse(email: String, password: String, nurse : Nurse) {
+        binding.registerButton.isActivated = false
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    auth.currentUser!!.let {
+                        i("$email was registered correctly")
+                        database.child("users").child(it.uid).setValue(nurse)
+                            .addOnSuccessListener {
+                                i("${nurse.firstName} ${nurse.lastName} created in database.")
+                                showSmallInfoToast(context, "Shiftify account created")
+                            }
+                            .addOnFailureListener {
+                                showSmallInfoToast(context, "user  data couldn't be created")
+                            }
+                            .addOnCompleteListener {
+                                navController.navigate(R.id.action_registerFragment_to_nurseShiftsFragment)
+                            }
+                    }
+                } else {
+                    binding.registerButton.isActivated = true
+                    i(task.exception)
+                    showSmallInfoToast(context, "Authentication failed. ${task.result}")
+                }
+            }
     }
 }
