@@ -91,7 +91,6 @@ class RegisterFragment : Fragment() {
             return
         }
         val newNurse = Nurse (
-            null,
             lastName,
             firstName,
             isShiftOwner,
