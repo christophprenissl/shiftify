@@ -1,17 +1,16 @@
 package com.christophprenissl.shiftify.views.loggedout
 
 import android.os.Bundle
-import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentRegisterBinding
-import com.christophprenissl.shiftify.models.Nurse
 import com.christophprenissl.shiftify.utils.showSmallInfoToast
 import com.christophprenissl.shiftify.viewmodels.loggedout.RegisterState
 import com.christophprenissl.shiftify.viewmodels.loggedout.RegisterViewModel
@@ -20,7 +19,7 @@ import com.christophprenissl.shiftify.viewmodels.loggedout.RegisterViewState
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
-    private lateinit var viewModel: RegisterViewModel
+    private val viewModel: RegisterViewModel by viewModels()
     private lateinit var navController: NavController
 
     override fun onCreateView(
@@ -28,8 +27,8 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
-        viewModel = RegisterViewModel()
         navController = findNavController()
+        viewModel.resetViewState()
 
         val registerStateObserver = Observer<RegisterState> {
             when(it) {

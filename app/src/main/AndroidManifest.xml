@@ -13,9 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shiftify">
         <activity
-            android:name="com.christophprenissl.shiftify.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Shiftify.NoActionBar">
+            android:name="com.christophprenissl.shiftify.views.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

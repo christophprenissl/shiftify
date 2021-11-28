@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify
+package com.christophprenissl.shiftify.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -24,6 +24,10 @@ class RegisterViewModel : ViewModel() {
     private val database = Firebase.database.reference
 
     init {
+        resetViewState()
+    }
+
+    fun resetViewState() {
         _viewState.value = RegisterViewState()
     }
 

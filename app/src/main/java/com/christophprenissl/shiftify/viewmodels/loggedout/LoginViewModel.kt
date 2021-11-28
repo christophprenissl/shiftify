@@ -23,6 +23,10 @@ class LoginViewModel: ViewModel() {
         }
     }
 
+    fun resetLoginState() {
+        _loginState.value = LoginState.LoggedOut
+    }
+
     fun tryToSignIn(email: String, password: String) {
         if (!isMatchingEmailAddress(email)) {
             _loginState.value = LoginState.ErrorEmail
