@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify.viewmodels
+package com.christophprenissl.shiftify.viewmodels.loggedout
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify.views.nurseviews
+package com.christophprenissl.shiftify.views.nurse
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

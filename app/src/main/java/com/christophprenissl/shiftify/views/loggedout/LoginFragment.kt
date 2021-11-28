@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify.views.loggedoutviews
+package com.christophprenissl.shiftify.views.loggedout
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentLoginBinding
 import com.christophprenissl.shiftify.utils.showSmallInfoToast
-import com.christophprenissl.shiftify.viewmodels.LoginState
-import com.christophprenissl.shiftify.viewmodels.LoginViewModel
+import com.christophprenissl.shiftify.viewmodels.loggedout.LoginState
+import com.christophprenissl.shiftify.viewmodels.loggedout.LoginViewModel
 
 class LoginFragment : Fragment() {
 

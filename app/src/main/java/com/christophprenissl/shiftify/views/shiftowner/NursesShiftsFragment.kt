@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify.views.shiftownerviews
+package com.christophprenissl.shiftify.views.shiftowner
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
