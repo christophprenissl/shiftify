@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify.shiftowner
+package com.christophprenissl.shiftify.views.shiftownerviews
 
 import android.os.Bundle
 import android.view.LayoutInflater

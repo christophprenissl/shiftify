@@ -1,17 +1,16 @@
-package com.christophprenissl.shiftify.loggedout
+package com.christophprenissl.shiftify.views.loggedoutviews
 
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentRegisterBinding
-import com.christophprenissl.shiftify.persistence.model.Nurse
-import com.christophprenissl.shiftify.utils.isEmail
+import com.christophprenissl.shiftify.models.Nurse
 import com.christophprenissl.shiftify.utils.showSmallInfoToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -76,7 +75,7 @@ class RegisterFragment : Fragment() {
             return
         }
 
-        if (!email.isEmail()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             showSmallInfoToast(context, "$email is not a correct email address.")
             return
         }

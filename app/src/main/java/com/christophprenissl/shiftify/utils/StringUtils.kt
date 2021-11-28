@@ -1,6 +1,7 @@
 package com.christophprenissl.shiftify.utils
 
-fun String.isEmail() : Boolean {
-    val regex = Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
-    return this.matches(regex)
+import android.util.Patterns
+
+fun isMatchingEmailAddress(address: String): Boolean {
+    return Patterns.EMAIL_ADDRESS.matcher(address).matches()
 }

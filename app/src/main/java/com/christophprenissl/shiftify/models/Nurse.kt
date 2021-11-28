@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify.persistence.model
+package com.christophprenissl.shiftify.models
 
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
