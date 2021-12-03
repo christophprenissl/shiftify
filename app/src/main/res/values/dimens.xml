@@ -4,4 +4,5 @@
     <dimen name="to_header_margin">32dp</dimen>
     <dimen name="to_text_edit_margin">40dp</dimen>
     <dimen name="header_font_size">32sp</dimen>
+    <dimen name="calendar_cell_dimens">40dp</dimen>
 </resources>

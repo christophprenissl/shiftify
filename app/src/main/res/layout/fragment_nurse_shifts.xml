@@ -9,6 +9,8 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/previous_button"
         app:icon="@drawable/ic_baseline_keyboard_arrow_left_24"
+        app:iconTint="@color/black"
+        android:backgroundTint="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,13 +19,16 @@
         android:id="@+id/month_year_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/previous_button"
         app:layout_constraintStart_toEndOf="@id/previous_button"
         app:layout_constraintEnd_toStartOf="@id/next_button"
+        app:layout_constraintBottom_toBottomOf="@id/previous_button"
         tools:text="MONTH YEAR"/>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/next_button"
         app:icon="@drawable/ic_baseline_keyboard_arrow_right_24"
+        app:iconTint="@color/black"
+        android:backgroundTint="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,7 +38,9 @@
         android:id="@+id/shift_plan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/standard_margin"
-        app:layout_constraintTop_toBottomOf="@id/previous_button"/>
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintTop_toBottomOf="@id/previous_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
