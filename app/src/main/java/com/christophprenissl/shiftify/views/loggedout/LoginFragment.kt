@@ -27,7 +27,6 @@ class LoginFragment : Fragment() {
     ): View {
         val binding = FragmentLoginBinding.inflate(inflater, container, false)
         navController = findNavController()
-        viewModel.resetLoginState()
 
         val loginStateObserver = Observer<LoginState> {
             binding.loginButton.isActivated = true
