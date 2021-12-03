@@ -14,8 +14,8 @@ class NurseShiftsViewModel: ViewModel() {
     var calendar: Calendar = Calendar.getInstance()
 
     init {
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
         calendar.firstDayOfWeek = Calendar.MONDAY
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
         _monthYearText.value =  calendar.monthYearString()
     }
 
