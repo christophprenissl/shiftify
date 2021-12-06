@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#9F0000</color>
+
+    <!-- plan colors -->
+    <color name="cell_background">#A26EFF</color>
+    <color name="other_month">#B6ADB0</color>
+    <color name="today">#E91E63</color>
+    <color name="shift_early">#1081B5</color>
+    <color name="shift_late">#032230</color>
+    <color name="shift_night">#210122</color>
+    <color name="shift_free">#E6580C</color>
 </resources>

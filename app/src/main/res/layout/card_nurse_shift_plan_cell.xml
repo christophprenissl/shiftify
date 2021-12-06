@@ -1,24 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cell"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/cell_calendar_margin"
     app:cardBackgroundColor="@color/purple_200">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/calendar_cell_dimens"
-        android:layout_height="@dimen/calendar_cell_dimens">
-
-        <TextView
-            android:id="@+id/week_day_text"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="99" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:orientation="horizontal">
 
-</androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:id="@+id/cell_type_indicator"
+                android:layout_width="@dimen/cell_type_indicator_bar_width"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="@dimen/calendar_cell_dimens"
+                android:layout_height="@dimen/calendar_cell_dimens"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:padding="@dimen/cell_calendar_padding">
+
+                <TextView
+                    android:id="@+id/week_day_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    tools:text="99" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>

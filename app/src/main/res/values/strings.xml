@@ -22,4 +22,13 @@
     <string name="hello_nurse_label">Hello %1$s %2$s</string>
     <string name="logout_button">Logout</string>
 
+    <!-- calendar -->
+    <string name="monday_label">Mo</string>
+    <string name="tuesday_label">Tu</string>
+    <string name="wednesday_label">We</string>
+    <string name="thursday_label">Th</string>
+    <string name="friday_label">Fr</string>
+    <string name="saturday_label">Sa</string>
+    <string name="sunday_label">Su</string>
+
 </resources>

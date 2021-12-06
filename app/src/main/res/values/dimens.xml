@@ -1,6 +1,10 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
+    <dimen name="cell_calendar_margin">4dp</dimen>
+    <dimen name="cell_calendar_padding">8dp</dimen>
+    <dimen name="cell_type_indicator_bar_width">4dp</dimen>
+    <dimen name="day_label_padding">4dp</dimen>
     <dimen name="to_header_margin">32dp</dimen>
     <dimen name="to_text_edit_margin">40dp</dimen>
     <dimen name="header_font_size">32sp</dimen>

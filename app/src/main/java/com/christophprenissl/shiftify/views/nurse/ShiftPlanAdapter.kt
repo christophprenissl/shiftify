@@ -47,13 +47,16 @@ class ShiftPlanAdapter constructor(private val context: Context?, private val vi
             binding.weekDayText.text = day.toString()
             if (isActive && context != null) {
                 binding.weekDayText.setTextColor(context.getColor(R.color.black))
-                binding.root.setCardBackgroundColor(context.getColor(R.color.teal_700))
+                binding.cellTypeIndicator.setBackgroundColor(context.getColor(R.color.shift_early))
+                binding.cell.setCardBackgroundColor(context.getColor(R.color.today))
             } else if (!isInCurrentMonth && context != null) {
-                binding.weekDayText.setTextColor(context.getColor(R.color.teal_700))
-                binding.root.setCardBackgroundColor(context.getColor(R.color.purple_200))
+                binding.weekDayText.setTextColor(context.getColor(R.color.other_month))
+                binding.cellTypeIndicator.setBackgroundColor(context.getColor(R.color.shift_early))
+                binding.cell.setCardBackgroundColor(context.getColor(R.color.cell_background))
             } else if (context != null) {
                 binding.weekDayText.setTextColor(context.getColor(R.color.black))
-                binding.root.setCardBackgroundColor(context.getColor(R.color.purple_200))
+                binding.cellTypeIndicator.setBackgroundColor(context.getColor(R.color.shift_early))
+                binding.cell.setCardBackgroundColor(context.getColor(R.color.cell_background))
             }
         }
     }
