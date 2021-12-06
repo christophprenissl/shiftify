@@ -22,11 +22,13 @@ class NurseShiftsViewModel: ViewModel() {
 
     fun addMonth() {
         monthCalendar.add(Calendar.MONTH, 1)
+        monthCalendar.set(Calendar.DAY_OF_MONTH, 1)
         _monthYearText.value = monthCalendar.monthYearString()
     }
 
     fun subtractMonth() {
         monthCalendar.add(Calendar.MONTH, -1)
+        monthCalendar.set(Calendar.DAY_OF_MONTH, 1)
         _monthYearText.value = monthCalendar.monthYearString()
     }
 }

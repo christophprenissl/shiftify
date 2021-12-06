@@ -34,7 +34,7 @@ class NurseShiftsFragment : Fragment() {
         navController = findNavController()
 
         binding.shiftPlan.layoutManager = GridLayoutManager(context, 7)
-        val adapter = ShiftPlanAdapter(context, viewModel.currentDayCalendar, viewModel.monthCalendar)
+        val adapter = ShiftPlanAdapter(context, viewModel)
         binding.shiftPlan.adapter = adapter
 
         binding.previousButton.setOnClickListener {

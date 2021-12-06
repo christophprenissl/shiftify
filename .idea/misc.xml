@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_nurse.xml" value="0.32708333333333334" />
         <entry key="app/src/main/res/layout/activity_shift_owner.xml" value="0.1765625" />
+        <entry key="app/src/main/res/layout/card_nurse_shift_plan_cell.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/card_shift_plan_cell.xml" value="0.335" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.178125" />
         <entry key="app/src/main/res/layout/fragment_create_poll_entity.xml" value="0.21240942028985507" />

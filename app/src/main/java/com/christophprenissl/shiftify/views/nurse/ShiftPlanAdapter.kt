@@ -9,11 +9,12 @@ import com.christophprenissl.shiftify.databinding.CardNurseShiftPlanCellBinding
 import com.christophprenissl.shiftify.utils.daysInTimeToMillis
 import com.christophprenissl.shiftify.utils.isInSameMonthAs
 import com.christophprenissl.shiftify.utils.isSameDayAs
+import com.christophprenissl.shiftify.viewmodels.nurse.NurseShiftsViewModel
 import java.util.*
 
-class ShiftPlanAdapter constructor(private val context: Context?, private val currentDay: Calendar, private val month: Calendar) : RecyclerView.Adapter<ShiftPlanAdapter.ViewHolder>() {
+class ShiftPlanAdapter constructor(private val context: Context?, private val viewModel: NurseShiftsViewModel) : RecyclerView.Adapter<ShiftPlanAdapter.ViewHolder>() {
 
-    private val calendarIterator = month.clone() as Calendar
+    private val calendarIterator: Calendar = Calendar.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = CardNurseShiftPlanCellBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,18 +25,18 @@ class ShiftPlanAdapter constructor(private val context: Context?, private val cu
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         //set start of week to Monday
-        val dayOfWeek = when(month.get(Calendar.DAY_OF_WEEK)) {
+        val dayOfWeek = when(viewModel.monthCalendar.get(Calendar.DAY_OF_WEEK)) {
             Calendar.SUNDAY -> 7
-            else -> month.get(Calendar.DAY_OF_WEEK) - 1
+            else -> viewModel.monthCalendar.get(Calendar.DAY_OF_WEEK) - 1
         }
 
         //showing days from last month in the beginning of the week till month starts
         //setting the date index for the first shown date by subtracting the dayOfWeek of the calendars first date
-        calendarIterator.time = Date(month.time.time + 1.daysInTimeToMillis() * (position + 1 - dayOfWeek))
+        calendarIterator.time = Date(viewModel.monthCalendar.time.time + 1.daysInTimeToMillis() * (position + 1 - dayOfWeek))
 
         holder.bind(calendarIterator.get(Calendar.DAY_OF_MONTH),
-            calendarIterator.isInSameMonthAs(month),
-            calendarIterator.isSameDayAs(currentDay))
+            viewModel.monthCalendar.isInSameMonthAs(calendarIterator),
+            calendarIterator.isSameDayAs(viewModel.currentDayCalendar))
     }
 
     override fun getItemCount(): Int = 42
@@ -45,9 +46,14 @@ class ShiftPlanAdapter constructor(private val context: Context?, private val cu
         fun bind(day: Int, isInCurrentMonth: Boolean, isActive: Boolean = false) {
             binding.weekDayText.text = day.toString()
             if (isActive && context != null) {
+                binding.weekDayText.setTextColor(context.getColor(R.color.black))
                 binding.root.setCardBackgroundColor(context.getColor(R.color.teal_700))
             } else if (!isInCurrentMonth && context != null) {
                 binding.weekDayText.setTextColor(context.getColor(R.color.teal_700))
+                binding.root.setCardBackgroundColor(context.getColor(R.color.purple_200))
+            } else if (context != null) {
+                binding.weekDayText.setTextColor(context.getColor(R.color.black))
+                binding.root.setCardBackgroundColor(context.getColor(R.color.purple_200))
             }
         }
     }
