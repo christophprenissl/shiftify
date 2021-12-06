@@ -11,21 +11,22 @@ class NurseShiftsViewModel: ViewModel() {
     private val _monthYearText = MutableLiveData<String>()
     val monthYear: LiveData<String> = _monthYearText
 
-    var calendar: Calendar = Calendar.getInstance()
+    var currentDayCalendar: Calendar = Calendar.getInstance()
+    var monthCalendar: Calendar = currentDayCalendar.clone() as Calendar
 
     init {
-        calendar.firstDayOfWeek = Calendar.MONDAY
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
-        _monthYearText.value =  calendar.monthYearString()
+        monthCalendar.firstDayOfWeek = Calendar.MONDAY
+        monthCalendar.set(Calendar.DAY_OF_MONTH, 1)
+        _monthYearText.value =  monthCalendar.monthYearString()
     }
 
     fun addMonth() {
-        calendar.add(Calendar.MONTH, 1)
-        _monthYearText.value = calendar.monthYearString()
+        monthCalendar.add(Calendar.MONTH, 1)
+        _monthYearText.value = monthCalendar.monthYearString()
     }
 
     fun subtractMonth() {
-        calendar.add(Calendar.MONTH, -1)
-        _monthYearText.value = calendar.monthYearString()
+        monthCalendar.add(Calendar.MONTH, -1)
+        _monthYearText.value = monthCalendar.monthYearString()
     }
 }

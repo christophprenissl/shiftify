@@ -13,7 +13,7 @@
         <entry key="app/src/main/res/layout/fragment_create_poll_entity.xml" value="0.21240942028985507" />
         <entry key="app/src/main/res/layout/fragment_edit_station.xml" value="0.21240942028985507" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_nurse_shifts.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_nurse_shifts.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_nurse_view.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/fragment_nurses_shifts.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.2534992223950233" />
