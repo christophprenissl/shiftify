@@ -30,5 +30,6 @@
     <string name="friday_label">Fr</string>
     <string name="saturday_label">Sa</string>
     <string name="sunday_label">Su</string>
+    <string name="early_shift_card_label">Early Shift</string>
 
 </resources>
