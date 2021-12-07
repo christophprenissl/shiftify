@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.CardNurseShiftPlanCellBinding
-import com.christophprenissl.shiftify.utils.daysInTimeToMillis
 import com.christophprenissl.shiftify.utils.isInSameMonthAs
 import com.christophprenissl.shiftify.utils.isSameDayAs
 import com.christophprenissl.shiftify.viewmodels.nurse.NurseShiftsViewModel
@@ -17,8 +16,6 @@ class ShiftPlanAdapter constructor(private val context: Context?,
                                    private val viewModel: NurseShiftsViewModel,
                                    private val onClick: PlanElementListener) : RecyclerView.Adapter<ShiftPlanAdapter.ViewHolder>() {
 
-    private val calendarIterator: Calendar = Calendar.getInstance()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = CardNurseShiftPlanCellBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
@@ -27,19 +24,12 @@ class ShiftPlanAdapter constructor(private val context: Context?,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        //set start of week to Monday
-        val dayOfWeek = when(viewModel.monthCalendar.get(Calendar.DAY_OF_WEEK)) {
-            Calendar.SUNDAY -> 7
-            else -> viewModel.monthCalendar.get(Calendar.DAY_OF_WEEK) - 1
-        }
+        val dayAtPos = viewModel.daysOfMonthList.value!![position]
 
-        //showing days from last month in the beginning of the week till month starts
-        //setting the date index for the first shown date by subtracting the dayOfWeek of the calendars first date
-        calendarIterator.time = Date(viewModel.monthCalendar.time.time + 1.daysInTimeToMillis() * (position + 1 - dayOfWeek))
-
-        holder.bind(calendarIterator.clone() as Calendar,
-            viewModel.monthCalendar.isInSameMonthAs(calendarIterator),
-            calendarIterator.isSameDayAs(viewModel.currentDayCalendar),
+        holder.bind(
+            dayAtPos,
+            viewModel.monthCalendar.isInSameMonthAs(dayAtPos),
+            viewModel.currentDayCalendar.isSameDayAs(dayAtPos),
             onClick)
     }
 
