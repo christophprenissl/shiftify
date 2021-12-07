@@ -10,9 +10,12 @@ import com.christophprenissl.shiftify.utils.daysInTimeToMillis
 import com.christophprenissl.shiftify.utils.isInSameMonthAs
 import com.christophprenissl.shiftify.utils.isSameDayAs
 import com.christophprenissl.shiftify.viewmodels.nurse.NurseShiftsViewModel
+import com.christophprenissl.shiftify.viewmodels.nurse.PlanElementListener
 import java.util.*
 
-class ShiftPlanAdapter constructor(private val context: Context?, private val viewModel: NurseShiftsViewModel) : RecyclerView.Adapter<ShiftPlanAdapter.ViewHolder>() {
+class ShiftPlanAdapter constructor(private val context: Context?,
+                                   private val viewModel: NurseShiftsViewModel,
+                                   private val onClick: PlanElementListener) : RecyclerView.Adapter<ShiftPlanAdapter.ViewHolder>() {
 
     private val calendarIterator: Calendar = Calendar.getInstance()
 
@@ -34,17 +37,21 @@ class ShiftPlanAdapter constructor(private val context: Context?, private val vi
         //setting the date index for the first shown date by subtracting the dayOfWeek of the calendars first date
         calendarIterator.time = Date(viewModel.monthCalendar.time.time + 1.daysInTimeToMillis() * (position + 1 - dayOfWeek))
 
-        holder.bind(calendarIterator.get(Calendar.DAY_OF_MONTH),
+        holder.bind(calendarIterator.clone() as Calendar,
             viewModel.monthCalendar.isInSameMonthAs(calendarIterator),
-            calendarIterator.isSameDayAs(viewModel.currentDayCalendar))
+            calendarIterator.isSameDayAs(viewModel.currentDayCalendar),
+            onClick)
     }
 
     override fun getItemCount(): Int = 42
 
-    class ViewHolder(private val binding: CardNurseShiftPlanCellBinding, private val context: Context?) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: CardNurseShiftPlanCellBinding,
+                     private val context: Context?) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(day: Int, isInCurrentMonth: Boolean, isActive: Boolean = false) {
-            binding.weekDayText.text = day.toString()
+        fun bind(day: Calendar, isInCurrentMonth: Boolean, isActive: Boolean = false,
+            onClick: PlanElementListener) {
+
+            binding.weekDayText.text = day.get(Calendar.DAY_OF_MONTH).toString()
             if (isActive && context != null) {
                 binding.weekDayText.setTextColor(context.getColor(R.color.black))
                 binding.cellTypeIndicator.setBackgroundColor(context.getColor(R.color.shift_early))
@@ -58,6 +65,8 @@ class ShiftPlanAdapter constructor(private val context: Context?, private val vi
                 binding.cellTypeIndicator.setBackgroundColor(context.getColor(R.color.shift_early))
                 binding.cell.setCardBackgroundColor(context.getColor(R.color.cell_background))
             }
+
+            binding.root.setOnClickListener { onClick.onPlanElementClick(day) }
         }
     }
 }

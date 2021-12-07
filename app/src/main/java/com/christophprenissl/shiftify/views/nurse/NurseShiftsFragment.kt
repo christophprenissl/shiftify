@@ -6,19 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentNurseShiftsBinding
 import com.christophprenissl.shiftify.viewmodels.nurse.NurseShiftsViewModel
+import com.christophprenissl.shiftify.viewmodels.nurse.PlanElementListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
+import java.util.*
 
-class NurseShiftsFragment : Fragment() {
+class NurseShiftsFragment : Fragment(), PlanElementListener {
 
-    private val viewModel: NurseShiftsViewModel by viewModels()
+    private lateinit var viewModel: NurseShiftsViewModel
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
 
@@ -33,8 +36,13 @@ class NurseShiftsFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         navController = findNavController()
 
+        viewModel = requireActivity().run {
+            ViewModelProviders.of(this)[NurseShiftsViewModel::class.java]
+        }
+        viewModel.unChooseDay()
+
         binding.shiftPlan.layoutManager = GridLayoutManager(context, 7)
-        val adapter = ShiftPlanAdapter(context, viewModel)
+        val adapter = ShiftPlanAdapter(context, viewModel, this)
         binding.shiftPlan.adapter = adapter
 
         binding.previousButton.setOnClickListener {
@@ -46,12 +54,22 @@ class NurseShiftsFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
-        val observer = Observer<String> {
+        val monthYearObserver = Observer<String> {
             binding.monthYearLabel.text = it
         }
+        viewModel.monthYear.observe(viewLifecycleOwner, monthYearObserver)
 
-        viewModel.monthYear.observe(viewLifecycleOwner, observer)
+        val chosenDayObserver = Observer<Calendar?> {
+            it?.let {
+                navController.navigate(R.id.action_nurseShiftsFragment_to_priorityFragment)
+            }
+        }
+        viewModel.chosenDay.observe(viewLifecycleOwner, chosenDayObserver)
 
         return binding.root
+    }
+
+    override fun onPlanElementClick(day: Calendar) {
+        viewModel.chooseDay(day)
     }
 }

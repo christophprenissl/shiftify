@@ -11,6 +11,9 @@ class NurseShiftsViewModel: ViewModel() {
     private val _monthYearText = MutableLiveData<String>()
     val monthYear: LiveData<String> = _monthYearText
 
+    private val _chosenDay = MutableLiveData<Calendar?>()
+    val chosenDay: LiveData<Calendar?> = _chosenDay
+
     var currentDayCalendar: Calendar = Calendar.getInstance()
     var monthCalendar: Calendar = currentDayCalendar.clone() as Calendar
 
@@ -30,5 +33,13 @@ class NurseShiftsViewModel: ViewModel() {
         monthCalendar.add(Calendar.MONTH, -1)
         monthCalendar.set(Calendar.DAY_OF_MONTH, 1)
         _monthYearText.value = monthCalendar.monthYearString()
+    }
+
+    fun chooseDay(day: Calendar) {
+        _chosenDay.value = day
+    }
+
+    fun unChooseDay() {
+        _chosenDay.value = null
     }
 }

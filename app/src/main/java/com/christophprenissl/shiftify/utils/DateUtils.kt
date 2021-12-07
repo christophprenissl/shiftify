@@ -7,7 +7,23 @@ fun Int.daysInTimeToMillis(): Long {
 }
 
 fun Calendar.monthYearString(): String {
-    return "${this.get(Calendar.MONTH)+1} ${this.get(Calendar.YEAR)}"
+    val monthName = when(this.get(Calendar.MONTH)) {
+        Calendar.JANUARY -> "January"
+        Calendar.FEBRUARY -> "February"
+        Calendar.MARCH -> "March"
+        Calendar.APRIL -> "April"
+        Calendar.MAY -> "May"
+        Calendar.JUNE -> "June"
+        Calendar.JULY -> "July"
+        Calendar.AUGUST -> "August"
+        Calendar.SEPTEMBER -> "September"
+        Calendar.OCTOBER -> "October"
+        Calendar.NOVEMBER -> "November"
+        Calendar.DECEMBER -> "December"
+        else -> "Error"
+    }
+
+    return "$monthName  ${this.get(Calendar.YEAR)}"
 }
 
 fun Calendar.isSameDayAs(otherCalendar: Calendar): Boolean {

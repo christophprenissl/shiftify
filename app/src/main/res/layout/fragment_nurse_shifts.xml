@@ -19,6 +19,7 @@
         android:id="@+id/month_year_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/date_month_size"
         app:layout_constraintTop_toTopOf="@id/previous_button"
         app:layout_constraintStart_toEndOf="@id/previous_button"
         app:layout_constraintEnd_toStartOf="@id/next_button"

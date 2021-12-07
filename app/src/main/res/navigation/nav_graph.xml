@@ -52,6 +52,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_nurseShiftsFragment_to_priorityFragment"
+            app:destination="@id/priorityFragment" />
     </fragment>
     <fragment
         android:id="@+id/roleChoiceFragment"
@@ -92,4 +95,9 @@
         android:name="com.christophprenissl.shiftify.views.shiftowner.EditStationFragment"
         android:label="fragment_edit_station"
         tools:layout="@layout/fragment_edit_station" />
+    <fragment
+        android:id="@+id/priorityFragment"
+        android:name="com.christophprenissl.shiftify.views.nurse.PriorityFragment"
+        android:label="fragment_priority"
+        tools:layout="@layout/fragment_priority" />
 </navigation>
