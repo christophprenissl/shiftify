@@ -60,7 +60,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_sentiment_dissatisfied_24"
             android:layout_weight="1"
-            android:contentDescription="@string/negative_priority"
+            android:contentDescription="@string/negative_priority_description"
             app:tint="@color/priority_4_color"/>
 
     </LinearLayout>
@@ -83,6 +83,7 @@
 
         <LinearLayout
             android:id="@+id/priority_first_place"
+            android:tag="@string/wish_shift_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -92,6 +93,7 @@
 
         <LinearLayout
             android:id="@+id/priority_second_place"
+            android:tag="@string/high_priority_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -101,6 +103,7 @@
 
         <LinearLayout
             android:id="@+id/priority_third_place"
+            android:tag="@string/neutral_priority_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -110,6 +113,7 @@
 
         <LinearLayout
             android:id="@+id/priority_fourth_place"
+            android:tag="@string/negative_priority_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"

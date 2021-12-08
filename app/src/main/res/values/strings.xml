@@ -43,8 +43,8 @@
     <string name="ok_next"><![CDATA[OK & next]]></string>
 
     <!-- priority view -->
-    <string name="priority_title">Set priority for %1$s</string>
+    <string name="priority_title">Set priorities for %1$s</string>
     <string name="high_priority_description">High priority</string>
     <string name="neutral_priority_description">Neutral Priority</string>
-    <string name="negative_priority">Negative Priority</string>
+    <string name="negative_priority_description">Negative Priority</string>
 </resources>

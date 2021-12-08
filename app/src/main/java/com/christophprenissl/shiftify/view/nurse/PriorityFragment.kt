@@ -35,7 +35,8 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
         }
 
         val observer = Observer<Calendar?> {
-            binding.title.text = getString(R.string.priority_title, viewModel.chosenDay.value?.dayMonthYearString())
+            val dateString = viewModel.chosenDay.value?.dayMonthYearString()
+            binding.title.text = getString(R.string.priority_title, dateString)
         }
         viewModel.chosenDay.observe(viewLifecycleOwner, observer)
 
@@ -80,12 +81,13 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
     }
 
     override fun onLongClick(v: View?): Boolean {
-        val clipText = "This is text"
-        val item = ClipData.Item(clipText)
-        val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
-        val data = ClipData(clipText, mimeTypes, item)
 
         v?.let {
+            val clipText = v.tag.toString()
+            val item = ClipData.Item(clipText)
+            val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
+            val data = ClipData(clipText, mimeTypes, item)
+
             val dragShadowBuilder = View.DragShadowBuilder(it)
             it.startDragAndDrop(data, dragShadowBuilder, it, 0)
             it.visibility = View.INVISIBLE
@@ -96,7 +98,7 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
 
     override fun onDrag(v: View?, event: DragEvent?): Boolean {
         //handle drag events
-        event?.let {
+        event?.let { it ->
             when (it.action) {
                 DragEvent.ACTION_DRAG_STARTED -> {
                     //check if correct clip data of dragged view
@@ -120,6 +122,12 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
                     val eventView = event.localState as View
                     val owner = eventView.parent as ViewGroup
                     owner.removeView(eventView)
+
+                    event.clipData?.let { data ->
+                        val priority = v!!.tag.toString()
+                        val shiftTitle = data.getItemAt(0).text.toString()
+                        viewModel.setPriority(shiftTitle, priority)
+                    }
 
                     val destination = v as LinearLayout
                     destination.addView(eventView)

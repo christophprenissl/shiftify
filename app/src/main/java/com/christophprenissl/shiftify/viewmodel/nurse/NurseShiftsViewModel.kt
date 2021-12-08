@@ -69,4 +69,8 @@ class NurseShiftsViewModel: ViewModel() {
     fun unChooseDay() {
         _chosenDay.value = null
     }
+
+    fun setPriority(shiftTitle: String, priority: String) {
+        //TODO: implement method
+    }
 }
