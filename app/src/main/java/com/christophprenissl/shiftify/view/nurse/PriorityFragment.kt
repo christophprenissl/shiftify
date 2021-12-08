@@ -40,6 +40,10 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
         }
         viewModel.chosenDay.observe(viewLifecycleOwner, observer)
 
+        binding.cancelButton.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
         val earlyShiftCard = CardShiftBinding.inflate(inflater, container, false)
         val lateShiftCard = CardShiftBinding.inflate(inflater, container, false)
         val nightShiftCard = CardShiftBinding.inflate(inflater, container, false)
