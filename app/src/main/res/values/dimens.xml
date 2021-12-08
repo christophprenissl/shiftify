@@ -1,6 +1,8 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
+    <dimen name="card_shift_dimens">60dp</dimen>
+    <dimen name="priority_width">300dp</dimen>
     <dimen name="cell_calendar_margin">4dp</dimen>
     <dimen name="cell_calendar_padding">8dp</dimen>
     <dimen name="cell_type_indicator_bar_width">4dp</dimen>

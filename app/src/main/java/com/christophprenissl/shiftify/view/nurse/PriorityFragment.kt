@@ -13,7 +13,10 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.christophprenissl.shiftify.R
+import com.christophprenissl.shiftify.databinding.CardShiftBinding
 import com.christophprenissl.shiftify.databinding.FragmentPriorityBinding
+import com.christophprenissl.shiftify.util.dayMonthYearString
 import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftsViewModel
 import java.util.*
 
@@ -32,11 +35,42 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
         }
 
         val observer = Observer<Calendar?> {
-            binding.title.text = viewModel.chosenDay.value?.get(Calendar.DAY_OF_MONTH).toString()
+            binding.title.text = getString(R.string.priority_title, viewModel.chosenDay.value?.dayMonthYearString())
         }
         viewModel.chosenDay.observe(viewLifecycleOwner, observer)
 
-        binding.earlyShiftCard.setOnLongClickListener(this)
+        val earlyShiftCard = CardShiftBinding.inflate(inflater, container, false)
+        val lateShiftCard = CardShiftBinding.inflate(inflater, container, false)
+        val nightShiftCard = CardShiftBinding.inflate(inflater, container, false)
+        val freeShiftCard = CardShiftBinding.inflate(inflater, container, false)
+        val holidayShiftCard = CardShiftBinding.inflate(inflater, container, false)
+        context?.let {
+            earlyShiftCard.root.setBackgroundColor(it.getColor(R.color.shift_early))
+            lateShiftCard.root.setBackgroundColor(it.getColor(R.color.shift_late))
+            lateShiftCard.shiftTitle.setTextColor(it.getColor(R.color.shift_font_light_color))
+            nightShiftCard.root.setBackgroundColor(it.getColor(R.color.shift_night))
+            nightShiftCard.shiftTitle.setTextColor(it.getColor(R.color.shift_font_light_color))
+            freeShiftCard.root.setBackgroundColor(it.getColor(R.color.shift_free))
+            holidayShiftCard.root.setBackgroundColor(it.getColor(R.color.shift_holiday))
+        }
+
+        earlyShiftCard.shiftTitle.text = getText(R.string.early_shift_card_label)
+        lateShiftCard.shiftTitle.text = getText(R.string.late_shift_card_label)
+        nightShiftCard.shiftTitle.text = getText(R.string.night_shift_card_label)
+        freeShiftCard.shiftTitle.text = getText(R.string.free_shift_card_label)
+        holidayShiftCard.shiftTitle.text = getText(R.string.holiday_shift_card_label)
+
+        binding.prioritySecondPlace.addView(earlyShiftCard.root)
+        binding.prioritySecondPlace.addView(lateShiftCard.root)
+        binding.prioritySecondPlace.addView(nightShiftCard.root)
+        binding.prioritySecondPlace.addView(freeShiftCard.root)
+        binding.prioritySecondPlace.addView(holidayShiftCard.root)
+
+        earlyShiftCard.root.setOnLongClickListener(this)
+        lateShiftCard.root.setOnLongClickListener(this)
+        nightShiftCard.root.setOnLongClickListener(this)
+        freeShiftCard.root.setOnLongClickListener(this)
+        holidayShiftCard.root.setOnLongClickListener(this)
         binding.priorityFirstPlace.setOnDragListener(this)
         binding.prioritySecondPlace.setOnDragListener(this)
         binding.priorityThirdPlace.setOnDragListener(this)

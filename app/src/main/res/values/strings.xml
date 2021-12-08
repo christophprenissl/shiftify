@@ -30,6 +30,21 @@
     <string name="friday_label">Fr</string>
     <string name="saturday_label">Sa</string>
     <string name="sunday_label">Su</string>
-    <string name="early_shift_card_label">Early Shift</string>
 
+    <!-- shift cards -->
+    <string name="early_shift_card_label">Early Shift</string>
+    <string name="late_shift_card_label">Late Shift</string>
+    <string name="night_shift_card_label">Night Shift</string>
+    <string name="free_shift_card_label">Free</string>
+    <string name="holiday_shift_card_label">Holiday</string>
+    <string name="wish_shift_description">Wish shift</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="ok_next"><![CDATA[OK & next]]></string>
+
+    <!-- priority view -->
+    <string name="priority_title">Set priority for %1$s</string>
+    <string name="high_priority_description">High priority</string>
+    <string name="neutral_priority_description">Neutral Priority</string>
+    <string name="negative_priority">Negative Priority</string>
 </resources>

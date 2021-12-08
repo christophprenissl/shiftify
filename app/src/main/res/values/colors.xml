@@ -17,4 +17,17 @@
     <color name="shift_late">#032230</color>
     <color name="shift_night">#210122</color>
     <color name="shift_free">#E6580C</color>
+    <color name="shift_holiday">#FF9800</color>
+    <color name="shift_font_color">#151315</color>
+    <color name="shift_font_light_color">#FFA2FF</color>
+
+    <color name="priority_1_color">#FA9689</color>
+    <color name="priority_2_color">#B992FF</color>
+    <color name="priority_3_color">#7F92FA</color>
+    <color name="priority_4_color">#6C2A35</color>
+
+    <!-- button colors -->
+    <color name="button_cancel_color">#9F0000</color>
+    <color name="button_neutral_color">#8D7D8F</color>
+    <color name="button_positive_color">#009688</color>
 </resources>
