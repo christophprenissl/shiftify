@@ -11,77 +11,76 @@ import android.view.View.OnDragListener
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.CardShiftBinding
 import com.christophprenissl.shiftify.databinding.FragmentPriorityBinding
-import com.christophprenissl.shiftify.util.dayMonthYearString
+import com.christophprenissl.shiftify.model.entity.PlanElement
+import com.christophprenissl.shiftify.util.*
 import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftsViewModel
-import java.util.*
 
 class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
 
     private lateinit var viewModel: NurseShiftsViewModel
+    private lateinit var binding: FragmentPriorityBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentPriorityBinding.inflate(inflater)
-
         viewModel = requireActivity().run {
             ViewModelProviders.of(this)[NurseShiftsViewModel::class.java]
         }
+        val chosenPlanElement = viewModel.getChosenPlanElement()!!
+        binding = createPriorityBinding(chosenPlanElement,inflater, container)
 
-        val observer = Observer<Calendar?> {
-            val dateString = viewModel.chosenDay.value?.dayMonthYearString()
+        viewModel.planElementsOfMonth.value?.get(viewModel.chosenPlanElement.value!!)?.date?.let {
+            val dateString = it.dayMonthYearString()
             binding.title.text = getString(R.string.priority_title, dateString)
         }
-        viewModel.chosenDay.observe(viewLifecycleOwner, observer)
 
-        binding.cancelButton.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
-
-        val earlyShiftCard = CardShiftBinding.inflate(inflater, container, false)
-        val lateShiftCard = CardShiftBinding.inflate(inflater, container, false)
-        val nightShiftCard = CardShiftBinding.inflate(inflater, container, false)
-        val freeShiftCard = CardShiftBinding.inflate(inflater, container, false)
-        val holidayShiftCard = CardShiftBinding.inflate(inflater, container, false)
-        context?.let {
-            earlyShiftCard.root.setBackgroundColor(it.getColor(R.color.shift_early))
-            lateShiftCard.root.setBackgroundColor(it.getColor(R.color.shift_late))
-            lateShiftCard.shiftTitle.setTextColor(it.getColor(R.color.shift_font_light_color))
-            nightShiftCard.root.setBackgroundColor(it.getColor(R.color.shift_night))
-            nightShiftCard.shiftTitle.setTextColor(it.getColor(R.color.shift_font_light_color))
-            freeShiftCard.root.setBackgroundColor(it.getColor(R.color.shift_free))
-            holidayShiftCard.root.setBackgroundColor(it.getColor(R.color.shift_holiday))
-        }
-
-        earlyShiftCard.shiftTitle.text = getText(R.string.early_shift_card_label)
-        lateShiftCard.shiftTitle.text = getText(R.string.late_shift_card_label)
-        nightShiftCard.shiftTitle.text = getText(R.string.night_shift_card_label)
-        freeShiftCard.shiftTitle.text = getText(R.string.free_shift_card_label)
-        holidayShiftCard.shiftTitle.text = getText(R.string.holiday_shift_card_label)
-
-        binding.prioritySecondPlace.addView(earlyShiftCard.root)
-        binding.prioritySecondPlace.addView(lateShiftCard.root)
-        binding.prioritySecondPlace.addView(nightShiftCard.root)
-        binding.prioritySecondPlace.addView(freeShiftCard.root)
-        binding.prioritySecondPlace.addView(holidayShiftCard.root)
-
-        earlyShiftCard.root.setOnLongClickListener(this)
-        lateShiftCard.root.setOnLongClickListener(this)
-        nightShiftCard.root.setOnLongClickListener(this)
-        freeShiftCard.root.setOnLongClickListener(this)
-        holidayShiftCard.root.setOnLongClickListener(this)
         binding.priorityFirstPlace.setOnDragListener(this)
         binding.prioritySecondPlace.setOnDragListener(this)
         binding.priorityThirdPlace.setOnDragListener(this)
         binding.priorityFourthPlace.setOnDragListener(this)
 
+        binding.cancelButton.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
         return binding.root
+    }
+
+    private fun createPriorityBinding(planElement: PlanElement, inflater: LayoutInflater, container: ViewGroup?): FragmentPriorityBinding {
+        val binding = FragmentPriorityBinding.inflate(inflater, container, false)
+        planElement.priorityMap.forEach { element ->
+            val shiftCardBinding = CardShiftBinding.inflate(inflater, container, false)
+            shiftCardBinding.shiftTitle.text = element.key.name
+            shiftCardBinding.root.tag = element.key.name
+            context?.let { context ->
+                when(element.key.name) {
+                    EARLY_SHIFT_NAME ->  shiftCardBinding.root.setBackgroundColor(context.getColor(R.color.shift_early))
+                    LATE_SHIFT_NAME -> {
+                        shiftCardBinding.shiftTitle.setTextColor(context.getColor(R.color.shift_font_light_color))
+                        shiftCardBinding.root.setBackgroundColor(context.getColor(R.color.shift_late))
+                    }
+                    NIGHT_SHIFT_NAME -> {
+                        shiftCardBinding.root.setBackgroundColor(context.getColor(R.color.shift_night))
+                        shiftCardBinding.shiftTitle.setTextColor(context.getColor(R.color.shift_font_light_color))
+                    }
+                    HOLIDAY_SHIFT_NAME -> shiftCardBinding.root.setBackgroundColor(context.getColor(R.color.shift_holiday))
+                    FREE_SHIFT_NAME -> shiftCardBinding.root.setBackgroundColor(context.getColor(R.color.shift_free))
+                }
+                when(element.value) {
+                    WISH_SHIFT_PRIORITY -> binding.priorityFirstPlace.addView(shiftCardBinding.root)
+                    HIGH_PRIORITY -> binding.prioritySecondPlace.addView(shiftCardBinding.root)
+                    NEUTRAL_PRIORITY -> binding.priorityThirdPlace.addView(shiftCardBinding.root)
+                    NEGATIVE_PRIORITY -> binding.priorityFourthPlace.addView(shiftCardBinding.root)
+                }
+                shiftCardBinding.root.setOnLongClickListener(this)
+            }
+        }
+        return binding
     }
 
     override fun onLongClick(v: View?): Boolean {

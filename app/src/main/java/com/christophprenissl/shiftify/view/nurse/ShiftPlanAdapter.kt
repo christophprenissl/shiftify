@@ -23,13 +23,12 @@ class ShiftPlanAdapter constructor(private val context: Context?,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val planElementAtPos = viewModel.planElementsOfMonth.value!![position]
 
-        val dayAtPos = viewModel.daysOfMonthList.value!![position]
-
-        holder.bind(
-            dayAtPos,
-            viewModel.monthCalendar.isInSameMonthAs(dayAtPos),
-            viewModel.currentDayCalendar.isSameDayAs(dayAtPos),
+        holder.bind(position,
+            planElementAtPos.date.get(Calendar.DAY_OF_MONTH).toString(),
+            viewModel.monthCalendar.isInSameMonthAs(planElementAtPos.date),
+            viewModel.currentDayCalendar.isSameDayAs(planElementAtPos.date),
             onClick)
     }
 
@@ -38,10 +37,10 @@ class ShiftPlanAdapter constructor(private val context: Context?,
     class ViewHolder(private val binding: CardNurseShiftPlanCellBinding,
                      private val context: Context?) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(day: Calendar, isInCurrentMonth: Boolean, isActive: Boolean = false,
-            onClick: PlanElementListener) {
+        fun bind(planElementIndex: Int, dateText: String, isInCurrentMonth: Boolean, isActive: Boolean = false,
+                 onClick: PlanElementListener) {
 
-            binding.weekDayText.text = day.get(Calendar.DAY_OF_MONTH).toString()
+            binding.weekDayText.text = dateText
             if (isActive && context != null) {
                 binding.weekDayText.setTextColor(context.getColor(R.color.black))
                 binding.cellTypeIndicator.setBackgroundColor(context.getColor(R.color.shift_early))
@@ -56,7 +55,7 @@ class ShiftPlanAdapter constructor(private val context: Context?,
                 binding.cell.setCardBackgroundColor(context.getColor(R.color.cell_background))
             }
 
-            binding.root.setOnClickListener { onClick.onPlanElementClick(day) }
+            binding.root.setOnClickListener { onClick.onPlanElementClick(planElementIndex) }
         }
     }
 }
