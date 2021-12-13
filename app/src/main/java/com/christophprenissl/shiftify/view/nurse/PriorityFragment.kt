@@ -11,6 +11,7 @@ import android.view.View.OnDragListener
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.CardShiftBinding
@@ -31,13 +32,13 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
         viewModel = requireActivity().run {
             ViewModelProviders.of(this)[NurseShiftsViewModel::class.java]
         }
-        val chosenPlanElement = viewModel.getChosenPlanElement()!!
-        binding = createPriorityBinding(chosenPlanElement,inflater, container)
+        binding =
+            createPriorityBinding(viewModel.aboutToSavePlanElement.value!!, inflater, container)
 
-        viewModel.planElementsOfMonth.value?.get(viewModel.chosenPlanElement.value!!)?.date?.let {
-            val dateString = it.dayMonthYearString()
-            binding.title.text = getString(R.string.priority_title, dateString)
+        val observer = Observer<PlanElement?> {
+            binding.title.text = getString(R.string.priority_title, it.date.dayMonthYearString())
         }
+        viewModel.aboutToSavePlanElement.observe(viewLifecycleOwner, observer)
 
         binding.priorityFirstPlace.setOnDragListener(this)
         binding.prioritySecondPlace.setOnDragListener(this)
@@ -45,6 +46,10 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
         binding.priorityFourthPlace.setOnDragListener(this)
 
         binding.cancelButton.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+        binding.okButton.setOnClickListener {
+            viewModel.saveChosenPlanElement()
             requireActivity().onBackPressed()
         }
 

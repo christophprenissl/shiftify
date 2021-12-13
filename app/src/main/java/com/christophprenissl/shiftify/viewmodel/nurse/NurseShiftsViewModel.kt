@@ -24,8 +24,14 @@ class NurseShiftsViewModel: ViewModel() {
     private val _planElementsOfMonth = MutableLiveData<List<PlanElement>>()
     val planElementsOfMonth: LiveData<List<PlanElement>> = _planElementsOfMonth
 
-    private val _chosenPlanElement = MutableLiveData<Int?>()
-    val chosenPlanElement: LiveData<Int?> = _chosenPlanElement
+    private var chosenIdx: Int = 0
+        set(value) {
+            field = value
+            initializeAboutToSavePlanElement()
+        }
+
+    private val _aboutToSavePlanElement = MutableLiveData<PlanElement?>()
+    val aboutToSavePlanElement: LiveData<PlanElement?> = _aboutToSavePlanElement
 
     var currentDayCalendar: Calendar = Calendar.getInstance()
     var monthCalendar: Calendar = currentDayCalendar.clone() as Calendar
@@ -61,19 +67,32 @@ class NurseShiftsViewModel: ViewModel() {
         _planElementsOfMonth.value = list
     }
 
-    private fun updatePlanElementAt(index: Int, shift: Shift, priority: Int) {
-        _planElementsOfMonth.value?.get(index)?.priorityMap?.set(shift, priority)
+    private fun updateChosenPlanElement(shift: Shift, priority: Int) {
+        aboutToSavePlanElement.value!!.priorityMap[shift] = priority
     }
 
-    fun initChosenPlanElementWhenNew() {
-        val chosenPlanElement = getChosenPlanElement()
-        if (chosenPlanElement?.priorityMap?.isEmpty() == true) {
-            setPriority(EARLY_SHIFT_NAME, NEUTRAL_PRIORITY_NAME)
-            setPriority(LATE_SHIFT_NAME, NEUTRAL_PRIORITY_NAME)
-            setPriority(NIGHT_SHIFT_NAME, NEUTRAL_PRIORITY_NAME)
-            setPriority(FREE_SHIFT_NAME, NEUTRAL_PRIORITY_NAME)
-            setPriority(HOLIDAY_SHIFT_NAME, NEUTRAL_PRIORITY_NAME)
+    fun saveChosenPlanElement() {
+        _planElementsOfMonth.value!![chosenIdx].priorityMap =
+            aboutToSavePlanElement.value!!.priorityMap
+    }
+
+    fun unChooseElement() {
+        _aboutToSavePlanElement.value = null
+    }
+
+    private fun initializeAboutToSavePlanElement() {
+        setAboutToSavePlanElement()
+        if (aboutToSavePlanElement.value!!.priorityMap.isEmpty()) {
+            initializePriorityMap()
         }
+    }
+
+    private fun initializePriorityMap() {
+        setPriority(EARLY_SHIFT_NAME, NEUTRAL_PRIORITY_NAME)
+        setPriority(LATE_SHIFT_NAME, NEUTRAL_PRIORITY_NAME)
+        setPriority(NIGHT_SHIFT_NAME, NEUTRAL_PRIORITY_NAME)
+        setPriority(FREE_SHIFT_NAME, NEUTRAL_PRIORITY_NAME)
+        setPriority(HOLIDAY_SHIFT_NAME, NEUTRAL_PRIORITY_NAME)
     }
 
     fun addMonth() {
@@ -91,18 +110,11 @@ class NurseShiftsViewModel: ViewModel() {
     }
 
     fun choosePlanElement(index: Int) {
-        _chosenPlanElement.value = index
+        chosenIdx = index
     }
 
-    fun unChooseDay() {
-        _chosenPlanElement.value = null
-    }
-
-    fun getChosenPlanElement(): PlanElement? {
-        chosenPlanElement.value?.let {
-            return planElementsOfMonth.value?.get(it)
-        }
-        return null
+    private fun setAboutToSavePlanElement() {
+        _aboutToSavePlanElement.value = _planElementsOfMonth.value!![chosenIdx].getDeepCopy()
     }
 
     fun setPriority(shiftTitle: String, priorityTitle: String) {
@@ -123,8 +135,8 @@ class NurseShiftsViewModel: ViewModel() {
             else -> 0
         }
 
-        if (chosenPlanElement.value != null && shift != null) {
-            updatePlanElementAt(chosenPlanElement.value!!, shift, priority)
+        if (shift != null) {
+            updateChosenPlanElement(shift, priority)
         }
     }
 }

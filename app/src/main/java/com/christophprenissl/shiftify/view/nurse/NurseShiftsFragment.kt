@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentNurseShiftsBinding
+import com.christophprenissl.shiftify.model.entity.PlanElement
 import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftsViewModel
 import com.christophprenissl.shiftify.viewmodel.nurse.PlanElementListener
 
@@ -33,7 +34,7 @@ class NurseShiftsFragment : Fragment(), PlanElementListener {
         viewModel = requireActivity().run {
             ViewModelProviders.of(this)[NurseShiftsViewModel::class.java]
         }
-        viewModel.unChooseDay()
+        viewModel.unChooseElement()
 
         binding.shiftPlan.layoutManager = GridLayoutManager(context, 7)
         val adapter = ShiftPlanAdapter(context, viewModel, this)
@@ -53,13 +54,12 @@ class NurseShiftsFragment : Fragment(), PlanElementListener {
         }
         viewModel.monthYear.observe(viewLifecycleOwner, monthYearObserver)
 
-        val chosenDayObserver = Observer<Int?> {
+        val chosenDayObserver = Observer<PlanElement?> {
             it?.let {
-                viewModel.initChosenPlanElementWhenNew()
                 navController.navigate(R.id.action_nurseShiftsFragment_to_priorityFragment)
             }
         }
-        viewModel.chosenPlanElement.observe(viewLifecycleOwner, chosenDayObserver)
+        viewModel.aboutToSavePlanElement.observe(viewLifecycleOwner, chosenDayObserver)
 
         return binding.root
     }

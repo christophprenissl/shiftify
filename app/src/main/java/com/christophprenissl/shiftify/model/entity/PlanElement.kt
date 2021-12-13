@@ -1,11 +1,20 @@
 package com.christophprenissl.shiftify.model.entity
 
+import com.google.firebase.database.IgnoreExtraProperties
 import java.util.*
 import kotlin.collections.HashMap
 
+@IgnoreExtraProperties
 data class PlanElement(var date: Calendar,
                        var priorityMap: HashMap<Shift, Int>,
-                       var approvalState: PlanElementApprovalState)
+                       var approvalState: PlanElementApprovalState) {
+
+    fun getDeepCopy(): PlanElement {
+        val dateCopy = date.clone() as Calendar
+        val priorityMapCopy = HashMap<Shift,Int>(priorityMap)
+        return  PlanElement(dateCopy, priorityMapCopy, approvalState)
+    }
+}
 
 
 enum class PlanElementApprovalState {
