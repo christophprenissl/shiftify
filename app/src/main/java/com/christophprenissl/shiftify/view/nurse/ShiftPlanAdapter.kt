@@ -54,8 +54,9 @@ class ShiftPlanAdapter constructor(private val context: Context?,
                 binding.cellTypeIndicator.setBackgroundColor(context.getColor(R.color.shift_early))
                 binding.cell.setCardBackgroundColor(context.getColor(R.color.cell_background))
             }
-
-            binding.root.setOnClickListener { onClick.onPlanElementClick(planElementIndex) }
+            if (isInCurrentMonth) {
+                binding.root.setOnClickListener { onClick.onPlanElementClick(planElementIndex) }
+            }
         }
     }
 }

@@ -113,6 +113,26 @@ class NurseShiftsViewModel: ViewModel() {
         chosenIdx = index
     }
 
+    fun findAndSetNextPlanElement(): Boolean {
+        if (checkIfLastDayOfMonth()) {
+            return false
+        }
+
+        saveChosenPlanElement()
+        choosePlanElement(chosenIdx + 1)
+        return true
+    }
+
+    fun checkIfLastDayOfMonth(): Boolean {
+        if (planElementsOfMonth.value!!.lastIndex == chosenIdx) {
+            return true
+        } else if (aboutToSavePlanElement.value!!.date.get(Calendar.DAY_OF_MONTH)
+            > _planElementsOfMonth.value!![chosenIdx+1].date.get(Calendar.DAY_OF_MONTH)) {
+            return true
+        }
+        return false
+    }
+
     private fun setAboutToSavePlanElement() {
         _aboutToSavePlanElement.value = _planElementsOfMonth.value!![chosenIdx].getDeepCopy()
     }

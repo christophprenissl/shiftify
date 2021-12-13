@@ -99,5 +99,11 @@
         android:id="@+id/priorityFragment"
         android:name="com.christophprenissl.shiftify.view.nurse.PriorityFragment"
         android:label="fragment_priority"
-        tools:layout="@layout/fragment_priority" />
+        tools:layout="@layout/fragment_priority" >
+        <action
+            android:id="@+id/action_priorityFragment_self"
+            app:destination="@id/priorityFragment"
+            app:popUpTo="@id/nurseShiftsFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

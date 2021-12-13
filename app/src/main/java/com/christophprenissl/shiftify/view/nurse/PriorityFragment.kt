@@ -11,8 +11,11 @@ import android.view.View.OnDragListener
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.view.isInvisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.CardShiftBinding
 import com.christophprenissl.shiftify.databinding.FragmentPriorityBinding
@@ -24,6 +27,7 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
 
     private lateinit var viewModel: NurseShiftsViewModel
     private lateinit var binding: FragmentPriorityBinding
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +38,7 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
         }
         binding =
             createPriorityBinding(viewModel.aboutToSavePlanElement.value!!, inflater, container)
+        navController = findNavController()
 
         val observer = Observer<PlanElement?> {
             binding.title.text = getString(R.string.priority_title, it.date.dayMonthYearString())
@@ -51,6 +56,14 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
         binding.okButton.setOnClickListener {
             viewModel.saveChosenPlanElement()
             requireActivity().onBackPressed()
+        }
+
+        binding.okNextButton.isInvisible = viewModel.checkIfLastDayOfMonth()
+
+        binding.okNextButton.setOnClickListener {
+            if (viewModel.findAndSetNextPlanElement()) {
+                navController.navigate(R.id.action_priorityFragment_self)
+            }
         }
 
         return binding.root
