@@ -6,7 +6,8 @@ import java.util.*
 import kotlin.collections.HashMap
 
 @IgnoreExtraProperties
-data class PlanElementDto(var date: Long?,
-                          var priorityMap: HashMap<ShiftDto, Int>?,
+data class PlanElementDto(var dateName: String? = null,
+                          var date: Long? = null,
+                          var priorityMap: Map<String, Int>? = null,
                             //approvalStates are defined in Constants
-                          var approvalState: Int? = PROCESSING)
+                          var approvalState: String? = null)

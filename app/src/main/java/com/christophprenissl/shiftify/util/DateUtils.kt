@@ -39,3 +39,7 @@ fun Calendar.isSameDayAs(otherCalendar: Calendar): Boolean {
 fun Calendar.isInSameMonthAs(otherCalendar: Calendar): Boolean {
     return this.get(Calendar.MONTH) == otherCalendar.get(Calendar.MONTH)
 }
+
+fun hoursMinutesToMillis(hours: Int, minutes: Int): Long {
+    return (hours * 3600000 + minutes * 60000).toLong()
+}

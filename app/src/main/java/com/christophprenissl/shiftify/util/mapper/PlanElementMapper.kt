@@ -1,44 +1,42 @@
 package com.christophprenissl.shiftify.util.mapper
 
 import com.christophprenissl.shiftify.model.dto.PlanElementDto
-import com.christophprenissl.shiftify.model.dto.ShiftDto
 import com.christophprenissl.shiftify.model.entity.PlanElement
 import com.christophprenissl.shiftify.model.entity.PlanElementApprovalState
-import com.christophprenissl.shiftify.model.entity.Shift
+import com.christophprenissl.shiftify.util.dayMonthYearString
 import java.util.*
-import kotlin.collections.HashMap
 
 class PlanElementMapper: DataMapper<PlanElementDto, PlanElement> {
 
     private val shiftMapper = ShiftMapper()
 
     override fun fromEntity(entity: PlanElement): PlanElementDto {
-        val priorityMapDto = hashMapOf<ShiftDto, Int>()
+        val priorityMapDto = hashMapOf<String, Int>()
         entity.priorityMap.forEach {
-            val key = shiftMapper.fromEntity(it.key)
-            priorityMapDto[key] = it.value
+            priorityMapDto[it.key] = it.value
         }
 
         return PlanElementDto(
+            dateName = entity.date.dayMonthYearString(),
             date = entity.date.timeInMillis,
             priorityMap = priorityMapDto,
-            approvalState = entity.approvalState.ordinal)
+            approvalState = entity.approvalState.name)
     }
 
     override fun toEntity(domain: PlanElementDto): PlanElement {
         val date = Calendar.getInstance()
         date.timeInMillis = domain.date?: -1
 
-        val priorityMap = hashMapOf<Shift, Int>()
+        val priorityMap = hashMapOf<String, Int>()
         domain.priorityMap?.forEach {
-            val key = shiftMapper.toEntity(it.key)
+            val key = it.key
             priorityMap[key] = it.value
         }
 
         return PlanElement(
             date = date,
             priorityMap = priorityMap,
-            approvalState = PlanElementApprovalState.values()[domain.approvalState?:0]
+            approvalState = domain.approvalState?.let { PlanElementApprovalState.valueOf(it) } ?: PlanElementApprovalState.PROCESSING
         )
     }
 }

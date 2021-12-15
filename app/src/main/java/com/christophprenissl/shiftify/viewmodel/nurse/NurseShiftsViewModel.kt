@@ -3,32 +3,39 @@ package com.christophprenissl.shiftify.viewmodel.nurse
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.christophprenissl.shiftify.model.entity.PlanElement
-import com.christophprenissl.shiftify.model.entity.PlanElementApprovalState
-import com.christophprenissl.shiftify.model.entity.Shift
+import com.christophprenissl.shiftify.model.dto.NursePlanMonthDto
+import com.christophprenissl.shiftify.model.entity.*
 import com.christophprenissl.shiftify.util.*
+import com.christophprenissl.shiftify.util.mapper.NursePlanMonthMapper
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import timber.log.Timber.i
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class NurseShiftsViewModel: ViewModel() {
 
     private val auth = FirebaseAuth.getInstance()
-    private val database = Firebase.database.reference
+    private var database: DatabaseReference
 
     private val _monthYearText = MutableLiveData<String>()
     val monthYear: LiveData<String> = _monthYearText
 
-    private val _planElementsOfMonth = MutableLiveData<List<PlanElement>>()
-    val planElementsOfMonth: LiveData<List<PlanElement>> = _planElementsOfMonth
+    private val _planMonths = MutableLiveData<HashMap<String,NursePlanMonth>>()
+    val nursePlanMonths: LiveData<HashMap<String, NursePlanMonth>> = _planMonths
+
+    private val planMonthMapper = NursePlanMonthMapper()
 
     private var chosenIdx: Int = 0
         set(value) {
             field = value
             initializeAboutToSavePlanElement()
         }
+
 
     private val _aboutToSavePlanElement = MutableLiveData<PlanElement?>()
     val aboutToSavePlanElement: LiveData<PlanElement?> = _aboutToSavePlanElement
@@ -39,13 +46,48 @@ class NurseShiftsViewModel: ViewModel() {
     private val calendarIterator: Calendar = Calendar.getInstance()
 
     init {
+        val userId = auth.currentUser!!.uid
+        database = Firebase.database.reference
+            .child("users").child(userId).child("planMonths")
+
         monthCalendar.firstDayOfWeek = Calendar.MONDAY
         monthCalendar.set(Calendar.DAY_OF_MONTH, 1)
         _monthYearText.value =  monthCalendar.monthYearString()
+
+        val planElementsListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val planMonths = dataSnapshot.getValue<Map<String, NursePlanMonthDto>>()
+                if (planMonths != null) {
+                    for (planMonth in planMonths) {
+                        _planMonths.value!![planMonth.key] = planMonthMapper.toEntity(planMonth.value)
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                i("$databaseError")
+            }
+        }
+        database.addValueEventListener(planElementsListener)
+
         createPlanElements()
     }
 
+    fun getMonthPlanList(): List<PlanElement> {
+        return _planMonths.value!![_monthYearText.value]!!.planElementList
+    }
+
+    private fun getPlanElementPriorityAt(idx: Int): PlanElement {
+        return getMonthPlanList()[idx]
+    }
+
     private fun createPlanElements() {
+        _planMonths.value = hashMapOf()
+        val planMonth = NursePlanMonth(
+            _monthYearText.value!!,
+            listOf()
+        )
+        _planMonths.value!![_monthYearText.value!!] = planMonth
         val list = ArrayList<PlanElement>()
         for (i in 0..41) {
             //set start of week to Monday
@@ -64,16 +106,22 @@ class NurseShiftsViewModel: ViewModel() {
             )
             list.add(planElement)
         }
-        _planElementsOfMonth.value = list
+        _planMonths.value!![_monthYearText.value]!!.planElementList = list
     }
 
     private fun updateChosenPlanElement(shift: Shift, priority: Int) {
-        aboutToSavePlanElement.value!!.priorityMap[shift] = priority
+        aboutToSavePlanElement.value!!.priorityMap[shift.name] = priority
     }
 
-    fun saveChosenPlanElement() {
-        _planElementsOfMonth.value!![chosenIdx].priorityMap =
+    fun saveChosenPlanElementInMonth() {
+        _planMonths.value!![_monthYearText.value]!!.planElementList[chosenIdx].priorityMap =
             aboutToSavePlanElement.value!!.priorityMap
+        val children = mutableMapOf<String, NursePlanMonthDto>()
+        for (month in _planMonths.value!!) {
+            children[month.key] = planMonthMapper.fromEntity(month.value)
+        }
+
+        database.updateChildren(children as Map<String, NursePlanMonthDto>)
     }
 
     fun unChooseElement() {
@@ -118,32 +166,33 @@ class NurseShiftsViewModel: ViewModel() {
             return false
         }
 
-        saveChosenPlanElement()
+        saveChosenPlanElementInMonth()
         choosePlanElement(chosenIdx + 1)
         return true
     }
 
     fun checkIfLastDayOfMonth(): Boolean {
-        if (planElementsOfMonth.value!!.lastIndex == chosenIdx) {
+        if (getMonthPlanList().lastIndex == chosenIdx) {
             return true
         } else if (aboutToSavePlanElement.value!!.date.get(Calendar.DAY_OF_MONTH)
-            > _planElementsOfMonth.value!![chosenIdx+1].date.get(Calendar.DAY_OF_MONTH)) {
+            > getMonthPlanList()[chosenIdx+1].date.get(Calendar.DAY_OF_MONTH)) {
             return true
         }
         return false
     }
 
     private fun setAboutToSavePlanElement() {
-        _aboutToSavePlanElement.value = _planElementsOfMonth.value!![chosenIdx].getDeepCopy()
+        _aboutToSavePlanElement.value =
+            _planMonths.value!![_monthYearText.value]!!.planElementList[chosenIdx].getDeepCopy()
     }
 
     fun setPriority(shiftTitle: String, priorityTitle: String) {
         val shift = when(shiftTitle) {
-            FREE_SHIFT_NAME -> Shift(shiftTitle, 0, 0, 1440)
-            HOLIDAY_SHIFT_NAME -> Shift(shiftTitle, 0, 0, 1440)
-            EARLY_SHIFT_NAME -> Shift(shiftTitle, 6, 45, 480)
-            LATE_SHIFT_NAME -> Shift(shiftTitle, 12, 30, 480)
-            NIGHT_SHIFT_NAME -> Shift(shiftTitle, 20, 15, 645)
+            FREE_SHIFT_NAME -> Shift(shiftTitle, hoursMinutesToMillis(0,0), hoursMinutesToMillis(24,0))
+            HOLIDAY_SHIFT_NAME -> Shift(shiftTitle, hoursMinutesToMillis(0,0), hoursMinutesToMillis(24,0))
+            EARLY_SHIFT_NAME -> Shift(shiftTitle, hoursMinutesToMillis(6,45), hoursMinutesToMillis(14, 30))
+            LATE_SHIFT_NAME -> Shift(shiftTitle, hoursMinutesToMillis(12, 30), hoursMinutesToMillis(20, 30))
+            NIGHT_SHIFT_NAME -> Shift(shiftTitle, hoursMinutesToMillis(20, 15), hoursMinutesToMillis(24 + 7, 0))
             else -> null
         }
 

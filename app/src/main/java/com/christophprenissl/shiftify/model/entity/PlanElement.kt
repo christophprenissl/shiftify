@@ -6,12 +6,12 @@ import kotlin.collections.HashMap
 
 @IgnoreExtraProperties
 data class PlanElement(var date: Calendar,
-                       var priorityMap: HashMap<Shift, Int>,
+                       var priorityMap: HashMap<String, Int>,
                        var approvalState: PlanElementApprovalState) {
 
     fun getDeepCopy(): PlanElement {
         val dateCopy = date.clone() as Calendar
-        val priorityMapCopy = HashMap<Shift,Int>(priorityMap)
+        val priorityMapCopy = HashMap<String,Int>(priorityMap)
         return  PlanElement(dateCopy, priorityMapCopy, approvalState)
     }
 }

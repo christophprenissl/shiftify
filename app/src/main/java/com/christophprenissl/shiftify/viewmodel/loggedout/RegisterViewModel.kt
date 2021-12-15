@@ -71,7 +71,8 @@ class RegisterViewModel : ViewModel() {
             isShiftOwner,
             stationValue,
             null,
-            null
+            null,
+            hashMapOf()
         )
         registerNurse(email,password1, newNurse)
     }

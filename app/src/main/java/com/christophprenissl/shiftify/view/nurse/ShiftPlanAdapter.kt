@@ -23,7 +23,7 @@ class ShiftPlanAdapter constructor(private val context: Context?,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val planElementAtPos = viewModel.planElementsOfMonth.value!![position]
+        val planElementAtPos = viewModel.getMonthPlanList()[position]
 
         holder.bind(position,
             planElementAtPos.date.get(Calendar.DAY_OF_MONTH).toString(),

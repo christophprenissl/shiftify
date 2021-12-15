@@ -6,7 +6,7 @@ import android.location.Location
 
 class StationMapper: DataMapper<StationDto, Station> {
 
-    private val planMonthMapper = PlanMonthMapper()
+    private val planMonthMapper = NursePlanMonthMapper()
 
     override fun fromEntity(entity: Station): StationDto {
         return StationDto(
@@ -14,7 +14,7 @@ class StationMapper: DataMapper<StationDto, Station> {
             name = entity.name,
             lon = entity.location.longitude,
             lat = entity.location.latitude,
-            planMonths = entity.planMonths.map { planMonth ->
+            nursePlanMonths = entity.nursePlanMonths.map { planMonth ->
                 planMonthMapper.fromEntity(planMonth)
             }
         )
@@ -29,7 +29,7 @@ class StationMapper: DataMapper<StationDto, Station> {
             stationCode = domain.stationCode?: "ERROR",
             name = domain.name?: "ERROR",
             location = location,
-            planMonths = domain.planMonths?.map { planMonthDto ->
+            nursePlanMonths = domain.nursePlanMonths?.map { planMonthDto ->
                 planMonthMapper.toEntity(planMonthDto)
             } ?: listOf()
         )

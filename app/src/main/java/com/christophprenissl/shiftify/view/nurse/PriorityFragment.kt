@@ -54,7 +54,7 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
             requireActivity().onBackPressed()
         }
         binding.okButton.setOnClickListener {
-            viewModel.saveChosenPlanElement()
+            viewModel.saveChosenPlanElementInMonth()
             requireActivity().onBackPressed()
         }
 
@@ -73,10 +73,10 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
         val binding = FragmentPriorityBinding.inflate(inflater, container, false)
         planElement.priorityMap.forEach { element ->
             val shiftCardBinding = CardShiftBinding.inflate(inflater, container, false)
-            shiftCardBinding.shiftTitle.text = element.key.name
-            shiftCardBinding.root.tag = element.key.name
+            shiftCardBinding.shiftTitle.text = element.key
+            shiftCardBinding.root.tag = element.key
             context?.let { context ->
-                when(element.key.name) {
+                when(element.key) {
                     EARLY_SHIFT_NAME ->  shiftCardBinding.root.setBackgroundColor(context.getColor(R.color.shift_early))
                     LATE_SHIFT_NAME -> {
                         shiftCardBinding.shiftTitle.setTextColor(context.getColor(R.color.shift_font_light_color))
