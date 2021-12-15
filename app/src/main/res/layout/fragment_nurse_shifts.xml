@@ -9,8 +9,8 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/previous_button"
         app:icon="@drawable/ic_baseline_keyboard_arrow_left_24"
-        app:iconTint="@color/black"
-        android:backgroundTint="@color/white"
+        app:iconGravity="textStart"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,8 +28,8 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/next_button"
         app:icon="@drawable/ic_baseline_keyboard_arrow_right_24"
-        app:iconTint="@color/black"
-        android:backgroundTint="@color/white"
+        app:iconGravity="textEnd"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"

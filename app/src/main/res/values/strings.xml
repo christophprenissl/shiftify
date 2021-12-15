@@ -47,4 +47,5 @@
     <string name="high_priority_description">High Priority</string>
     <string name="neutral_priority_description">Neutral Priority</string>
     <string name="negative_priority_description">Negative Priority</string>
+    <string name="log_out_item_title">Log out</string>
 </resources>
