@@ -14,13 +14,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentNurseShiftsBinding
 import com.christophprenissl.shiftify.model.entity.PlanElement
+import com.christophprenissl.shiftify.util.WEEK_DAY_COUNT
+import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftsState
 import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftsViewModel
 import com.christophprenissl.shiftify.viewmodel.nurse.PlanElementListener
 
 class NurseShiftsFragment : Fragment(), PlanElementListener {
 
     private lateinit var viewModel: NurseShiftsViewModel
-
     private lateinit var navController: NavController
 
     @SuppressLint("NotifyDataSetChanged")
@@ -36,9 +37,16 @@ class NurseShiftsFragment : Fragment(), PlanElementListener {
         }
         viewModel.unChooseElement()
 
-        binding.shiftPlan.layoutManager = GridLayoutManager(context, 7)
+        binding.shiftPlan.layoutManager = GridLayoutManager(context, WEEK_DAY_COUNT)
         val adapter = ShiftPlanAdapter(context, viewModel, this)
         binding.shiftPlan.adapter = adapter
+
+        val nurseShiftsStateObserver = Observer<NurseShiftsState> {
+            if (it == NurseShiftsState.USER_LOGGED_OUT) {
+                requireActivity().onBackPressed()
+            }
+        }
+        viewModel.nurseShiftsState.observe(viewLifecycleOwner, nurseShiftsStateObserver)
 
         binding.previousButton.setOnClickListener {
             viewModel.subtractMonth()

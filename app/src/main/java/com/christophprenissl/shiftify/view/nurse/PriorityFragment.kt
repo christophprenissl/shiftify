@@ -58,7 +58,7 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
             requireActivity().onBackPressed()
         }
 
-        binding.okNextButton.isInvisible = viewModel.checkIfLastDayOfMonth()
+        binding.okNextButton.isInvisible = viewModel.checkIfLastDayOfCalendarView()
 
         binding.okNextButton.setOnClickListener {
             if (viewModel.findAndSetNextPlanElement()) {
@@ -147,7 +147,7 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
                     event.clipData?.let { data ->
                         val priority = v!!.tag.toString()
                         val shiftTitle = data.getItemAt(0).text.toString()
-                        viewModel.setPriority(shiftTitle, priority)
+                        viewModel.setShiftAndPriority(shiftTitle, priority)
                     }
 
                     val destination = v as LinearLayout
