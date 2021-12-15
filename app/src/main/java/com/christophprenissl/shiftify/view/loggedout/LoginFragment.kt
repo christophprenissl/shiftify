@@ -57,6 +57,8 @@ class LoginFragment : Fragment() {
             navController.navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
+        viewModel.setLoginState()
+
         return binding.root
     }
 }

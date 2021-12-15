@@ -2,10 +2,8 @@ package com.christophprenissl.shiftify.view.nurse
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
@@ -29,6 +27,8 @@ class NurseShiftsFragment : Fragment(), PlanElementListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
+
         val binding = FragmentNurseShiftsBinding.inflate(inflater, container, false)
         navController = findNavController()
 
@@ -43,7 +43,7 @@ class NurseShiftsFragment : Fragment(), PlanElementListener {
 
         val nurseShiftsStateObserver = Observer<NurseShiftsState> {
             if (it == NurseShiftsState.USER_LOGGED_OUT) {
-                requireActivity().onBackPressed()
+                navController.navigate(R.id.action_nurseShiftsFragment_to_loginFragment)
             }
         }
         viewModel.nurseShiftsState.observe(viewLifecycleOwner, nurseShiftsStateObserver)
@@ -69,10 +69,24 @@ class NurseShiftsFragment : Fragment(), PlanElementListener {
         }
         viewModel.aboutToSavePlanElement.observe(viewLifecycleOwner, chosenDayObserver)
 
+        viewModel.setLoginState()
+
         return binding.root
     }
 
     override fun onPlanElementClick(index: Int) {
         viewModel.choosePlanElement(index)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.options_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.logout -> viewModel.logoutUser()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

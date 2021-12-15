@@ -39,7 +39,6 @@ class NurseShiftsViewModel: ViewModel() {
 
     var currentDayCalendar: Calendar = Calendar.getInstance()
     var monthCalendar: Calendar = currentDayCalendar.clone() as Calendar
-    private val calendarIterator: Calendar = Calendar.getInstance()
     private var chosenIdx: Int = 0
         set(value) {
             field = value
@@ -47,6 +46,8 @@ class NurseShiftsViewModel: ViewModel() {
         }
 
     init {
+        setupMonthCalendar()
+        createMonthPlanElements()
         if (auth.currentUser != null) {
             _nurseShiftsState.value = NurseShiftsState.USER_LOGGED_IN
 
@@ -69,12 +70,22 @@ class NurseShiftsViewModel: ViewModel() {
                 }
             }
             database.addValueEventListener(planElementsListener)
-
-            setupMonthCalendar()
-            createMonthPlanElements()
         } else {
             _nurseShiftsState.value = NurseShiftsState.USER_LOGGED_OUT
         }
+    }
+
+    fun setLoginState() {
+        if (auth.currentUser != null) {
+            _nurseShiftsState.value = NurseShiftsState.USER_LOGGED_IN
+        } else {
+            _nurseShiftsState.value = NurseShiftsState.USER_LOGGED_OUT
+        }
+    }
+
+    fun logoutUser() {
+        auth.signOut()
+        _nurseShiftsState.value = NurseShiftsState.USER_LOGGED_OUT
     }
 
     private fun setupMonthCalendar() {
@@ -93,6 +104,7 @@ class NurseShiftsViewModel: ViewModel() {
         _nursePlanMonths.value!![_monthYearText.value!!] = planMonth
 
         val list = ArrayList<PlanElement>()
+        val calendarIterator = monthCalendar.clone() as Calendar
         var i = 0
         while (calendarIterator.isInSameMonthAs(monthCalendar)) {
             //showing days from last month in the beginning of the week till month starts

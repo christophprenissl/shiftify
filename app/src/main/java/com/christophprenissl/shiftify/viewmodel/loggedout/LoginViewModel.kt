@@ -15,7 +15,7 @@ class LoginViewModel: ViewModel() {
     private val _loginState: MutableLiveData<LoginState> = MutableLiveData()
     val loginState: LiveData<LoginState> = _loginState
 
-    init {
+    fun setLoginState() {
         if (auth.currentUser != null) {
             _loginState.value = LoginState.LoggedIn
         } else {

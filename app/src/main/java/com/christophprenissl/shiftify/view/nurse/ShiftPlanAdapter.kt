@@ -35,18 +35,19 @@ class ShiftPlanAdapter constructor(private val context: Context?,
         calendarIterator.timeInMillis = viewModel.monthCalendar.time.time + 1.daysInTimeToMillis() * (position + 1 - dayOfWeek)
 
         val dayOfMonthString = calendarIterator.get(Calendar.DAY_OF_MONTH).toString()
-        if (!calendarIterator.isInSameMonthAs(viewModel.monthCalendar)) {
+
+        if (position > lastIndex) {
             holder.bind(
                 planElementIndex = null,
-                dayOfMonthString,
+                calendarIterator.get(Calendar.DAY_OF_MONTH).toString(),
                 isInCurrentMonth = false,
                 isActive = false,
                 onClick = null
             )
-        } else if (position > lastIndex) {
+        } else if (!calendarIterator.isInSameMonthAs(viewModel.monthCalendar)) {
             holder.bind(
                 planElementIndex = null,
-                calendarIterator.get(Calendar.DAY_OF_MONTH).toString(),
+                dayOfMonthString,
                 isInCurrentMonth = false,
                 isActive = false,
                 onClick = null
