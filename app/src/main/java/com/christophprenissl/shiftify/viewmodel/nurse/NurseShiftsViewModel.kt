@@ -109,7 +109,6 @@ class NurseShiftsViewModel: ViewModel() {
         while (calendarIterator.isInSameMonthAs(monthCalendar)) {
             //showing days from last month in the beginning of the week till month starts
             //setting the date index for the first shown date by subtracting the dayOfWeek of the calendars first date
-            calendarIterator.time = Date(monthCalendar.time.time + i.daysInTimeToMillis())
             val planElement = PlanElement(
                 calendarIterator.clone() as Calendar,
                 hashMapOf(),
@@ -117,6 +116,7 @@ class NurseShiftsViewModel: ViewModel() {
             )
             list.add(planElement)
             i++
+            calendarIterator.time = Date(monthCalendar.time.time + i.daysInTimeToMillis())
         }
         _nursePlanMonths.value!![_monthYearText.value]!!.planElementList = list
     }
