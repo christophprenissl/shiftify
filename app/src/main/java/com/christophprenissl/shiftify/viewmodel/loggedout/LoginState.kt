@@ -1,10 +1,12 @@
 package com.christophprenissl.shiftify.viewmodel.loggedout
 
 enum class LoginState {
-    LoggedIn,
+    LoggedInAsNurse,
+    LoggedInAsShiftOwner,
     LoggedOut,
     Loading,
-    Success,
+    SuccessAsNurse,
+    SuccessAsShiftOwner,
     ErrorLogin,
     ErrorPassword,
     ErrorEmail

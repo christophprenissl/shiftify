@@ -31,11 +31,16 @@ class LoginFragment : Fragment() {
         val loginStateObserver = Observer<LoginState> {
             binding.loginButton.isActivated = true
             when (it) {
-                LoginState.Success -> {
+                LoginState.SuccessAsNurse -> {
                     showSmallInfoToast(context, "Successfully logged in")
                     navController.navigate(R.id.action_loginFragment_to_nurseShiftsFragment)
                 }
-                LoginState.LoggedIn -> navController.navigate(R.id.action_loginFragment_to_nurseShiftsFragment)
+                LoginState.SuccessAsShiftOwner -> {
+                    showSmallInfoToast(context, "Successfully logged in")
+                    navController.navigate(R.id.action_loginFragment_to_roleChoiceFragment)
+                }
+                LoginState.LoggedInAsNurse -> navController.navigate(R.id.action_loginFragment_to_nurseShiftsFragment)
+                LoginState.LoggedInAsShiftOwner -> navController.navigate(R.id.action_loginFragment_to_roleChoiceFragment)
                 LoginState.ErrorEmail -> showSmallInfoToast(context, "Email is not correct")
                 LoginState.ErrorPassword -> showSmallInfoToast(context, "Password must at least be 6 characters")
                 LoginState.ErrorLogin -> showSmallInfoToast(context, "An error occurred while logging in")
@@ -56,8 +61,6 @@ class LoginFragment : Fragment() {
         binding.registerButton.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_registerFragment)
         }
-
-        viewModel.setLoginState()
 
         return binding.root
     }
