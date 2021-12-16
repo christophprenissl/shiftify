@@ -21,10 +21,11 @@
     <color name="shift_font_color">#151315</color>
     <color name="shift_font_light_color">#FFA2FF</color>
 
-    <color name="priority_1_color">#FA9689</color>
-    <color name="priority_2_color">#B992FF</color>
-    <color name="priority_3_color">#7F92FA</color>
-    <color name="priority_4_color">#6C2A35</color>
+    <!-- priority colors -->
+    <color name="priority_1_color">#FF5722</color>
+    <color name="priority_2_color">#4CAF50</color>
+    <color name="priority_3_color">#FFEB3B</color>
+    <color name="priority_4_color">#A5172F</color>
 
     <!-- button colors -->
     <color name="button_cancel_color">#9F0000</color>
