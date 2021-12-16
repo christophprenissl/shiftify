@@ -1,4 +1,4 @@
-package com.example.shiftify
+package com.christophprenissl.shiftify
 
 import org.junit.Test
 
