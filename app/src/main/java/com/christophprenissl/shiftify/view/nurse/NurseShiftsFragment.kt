@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,7 +19,7 @@ import com.christophprenissl.shiftify.viewmodel.nurse.PlanElementListener
 
 class NurseShiftsFragment : Fragment(), PlanElementListener {
 
-    private lateinit var viewModel: NurseShiftsViewModel
+    private val viewModel: NurseShiftsViewModel by activityViewModels()
     private lateinit var navController: NavController
 
     @SuppressLint("NotifyDataSetChanged")
@@ -32,13 +32,10 @@ class NurseShiftsFragment : Fragment(), PlanElementListener {
         val binding = FragmentNurseShiftsBinding.inflate(inflater, container, false)
         navController = findNavController()
 
-        viewModel = requireActivity().run {
-            ViewModelProviders.of(this)[NurseShiftsViewModel::class.java]
-        }
         viewModel.unChooseElement()
 
         binding.shiftPlan.layoutManager = GridLayoutManager(context, WEEK_DAY_COUNT)
-        val adapter = ShiftPlanAdapter(context, viewModel, this)
+        val adapter = NurseShiftPlanAdapter(context, viewModel, this)
         binding.shiftPlan.adapter = adapter
 
         val nurseShiftsStateObserver = Observer<NurseShiftsState> {

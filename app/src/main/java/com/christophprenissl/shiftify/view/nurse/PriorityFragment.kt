@@ -12,8 +12,8 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.view.isInvisible
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
@@ -25,7 +25,7 @@ import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftsViewModel
 
 class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
 
-    private lateinit var viewModel: NurseShiftsViewModel
+    private val viewModel: NurseShiftsViewModel by activityViewModels()
     private lateinit var binding: FragmentPriorityBinding
     private lateinit var navController: NavController
 
@@ -33,9 +33,6 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = requireActivity().run {
-            ViewModelProviders.of(this)[NurseShiftsViewModel::class.java]
-        }
         binding =
             createPriorityBinding(viewModel.aboutToSavePlanElement.value!!, inflater, container)
         navController = findNavController()

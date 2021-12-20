@@ -20,13 +20,13 @@ class NurseMapper: DataMapper<NurseDto, Nurse>{
             stationValue = entity.stationValue,
             holidaysPerYearCount = entity.holidaysPerYearCount,
             hoursPerMonthCount = entity.hoursPerMonthCount,
-            nursePlanMonths = planMonthsDto
+            planMonths = planMonthsDto
         )
     }
 
     override fun toEntity(domain: NurseDto): Nurse {
         val planMonths = hashMapOf<String, NursePlanMonth>()
-        domain.nursePlanMonths?.forEach {
+        domain.planMonths?.forEach {
             planMonths[it.key] = planMonthMapper.toEntity(it.value)
         }
 

@@ -13,9 +13,9 @@ import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftsViewModel
 import com.christophprenissl.shiftify.viewmodel.nurse.PlanElementListener
 import java.util.*
 
-class ShiftPlanAdapter constructor(private val context: Context?,
-                                   private val viewModel: NurseShiftsViewModel,
-                                   private val onClick: PlanElementListener) : RecyclerView.Adapter<ShiftPlanAdapter.ViewHolder>() {
+class NurseShiftPlanAdapter constructor(private val context: Context?,
+                                        private val viewModel: NurseShiftsViewModel,
+                                        private val onClick: PlanElementListener) : RecyclerView.Adapter<NurseShiftPlanAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = CardNurseShiftPlanCellBinding.inflate(LayoutInflater.from(parent.context), parent, false)

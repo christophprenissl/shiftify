@@ -9,4 +9,4 @@ data class NurseDto(var lastName: String? = null,
                     var stationValue: String? = null,
                     var holidaysPerYearCount: Int? = null,
                     var hoursPerMonthCount: Int? = null,
-                    var nursePlanMonths: Map<String, NursePlanMonthDto>? = null)
+                    var planMonths: Map<String, NursePlanMonthDto>? = null)

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cell"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/cell_calendar_margin"
+    app:cardBackgroundColor="@color/purple_200">
+
+    <LinearLayout
+        android:layout_width="@dimen/calendar_cell_dimens"
+        android:layout_height="@dimen/calendar_cell_dimens"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:padding="@dimen/cell_calendar_padding">
+
+        <TextView
+            android:id="@+id/week_day_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="99" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
