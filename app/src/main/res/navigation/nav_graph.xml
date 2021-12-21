@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_nursesShiftsFragment_to_editStationFragment"
             app:destination="@id/editStationFragment" />
+        <action
+            android:id="@+id/action_nursesShiftsFragment_to_shiftOwnerPlanDetailFragment"
+            app:destination="@id/shiftOwnerPlanDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/createPollEntityFragment"
@@ -106,4 +109,9 @@
             app:popUpTo="@id/nurseShiftsFragment"
             app:popUpToInclusive="false" />
     </fragment>
+    <fragment
+        android:id="@+id/shiftOwnerPlanDetailFragment"
+        android:name="com.christophprenissl.shiftify.view.shiftowner.ShiftOwnerPlanDetailFragment"
+        android:label="fragment_shift_owner_plan_detail"
+        tools:layout="@layout/fragment_shift_owner_plan_detail" />
 </navigation>

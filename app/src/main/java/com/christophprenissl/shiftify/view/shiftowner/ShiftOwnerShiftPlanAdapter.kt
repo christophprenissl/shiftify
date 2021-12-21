@@ -36,7 +36,7 @@ class ShiftOwnerShiftPlanAdapter constructor(private val context: Context?,
 
         val dayOfMonthString = calendarIterator.get(Calendar.DAY_OF_MONTH).toString()
 
-        if (position + 1 + dayOfWeek > lastIndexOfMonth) {
+        if (position + 1 > lastIndexOfMonth + dayOfWeek) {
             holder.bind(
                 planElementIndex = null,
                 calendarIterator.get(Calendar.DAY_OF_MONTH).toString(),

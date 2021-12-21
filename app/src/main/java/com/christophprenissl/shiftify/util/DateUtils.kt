@@ -28,7 +28,7 @@ fun Calendar.monthYearString(): String {
 
 fun Calendar.dayMonthYearString(): String {
     val monthYear = this.monthYearString()
-    return "${this.get(Calendar.DAY_OF_MONTH)}th $monthYear"
+    return "${this.get(Calendar.DAY_OF_MONTH)}. $monthYear"
 }
 
 fun Calendar.isSameDayAs(otherCalendar: Calendar): Boolean {

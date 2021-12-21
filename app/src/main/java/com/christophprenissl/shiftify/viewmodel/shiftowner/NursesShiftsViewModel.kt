@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.christophprenissl.shiftify.model.dto.NurseDto
+import com.christophprenissl.shiftify.model.entity.PlanElement
 import com.christophprenissl.shiftify.model.entity.ShiftOwnerPlan
-import com.christophprenissl.shiftify.util.mapper.NursePlanMonthMapper
+import com.christophprenissl.shiftify.util.dayMonthYearString
+import com.christophprenissl.shiftify.util.mapper.NurseMapper
 import com.christophprenissl.shiftify.util.monthYearString
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -20,7 +22,7 @@ import java.util.*
 
 class NursesShiftsViewModel: ViewModel() {
 
-    private val nurseShiftPlanMapper = NursePlanMonthMapper()
+    private val nurseMapper = NurseMapper()
 
     private val _shiftOwnerStationValue = MutableLiveData<String>()
 
@@ -36,7 +38,7 @@ class NursesShiftsViewModel: ViewModel() {
 
     var currentDayCalendar: Calendar = Calendar.getInstance()
     var monthCalendar: Calendar = currentDayCalendar.clone() as Calendar
-    private var chosenIdx: Int = 0
+    var chosenDayCalendar: Calendar = Calendar.getInstance()
 
     init {
         setupMonthCalendar()
@@ -47,15 +49,24 @@ class NursesShiftsViewModel: ViewModel() {
         usersDatabase = Firebase.database.reference.child("users")
         val plansListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val nurses = dataSnapshot.getValue<Map<String, NurseDto>>()?.filter {
+                val nursesMap = dataSnapshot.getValue<Map<String, NurseDto>>()?.filter {
                     it.value.stationValue == _shiftOwnerStationValue.value
+                } ?. mapValues {
+                   nurseMapper.toEntity(it.value)
                 }
-                val nursesMonthsMap = nurses?.mapValues {
-                    it.value.planMonths?.mapValues { planMonths ->
-                        nurseShiftPlanMapper.toEntity(planMonths.value).planElementList
-                    }?: mapOf()
-                }?: mapOf()
-                _shiftOwnerPlan.value = ShiftOwnerPlan(nursesMonthsMap)
+
+                val planElementMap: MutableMap<String, Map<String, PlanElement>> = mutableMapOf()
+                nursesMap?.forEach {
+                    val nursePlanMap: MutableMap<String, PlanElement> = mutableMapOf()
+                    it.value.nursePlanMonths.map { month ->
+                        for (element in month.value.planElementList) {
+                            nursePlanMap[element.date.dayMonthYearString()] = element
+                        }
+                    }
+                    planElementMap[it.value.firstName + " " + it.value.lastName] = nursePlanMap
+                }
+
+                _shiftOwnerPlan.value = ShiftOwnerPlan(planElementMap)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -80,5 +91,9 @@ class NursesShiftsViewModel: ViewModel() {
         monthCalendar.firstDayOfWeek = Calendar.MONDAY
         monthCalendar.set(Calendar.DAY_OF_MONTH, 1)
         _monthYearText.value = monthCalendar.monthYearString()
+    }
+
+    fun setChosenDayCalendar(day: Int) {
+        chosenDayCalendar.set(Calendar.DAY_OF_MONTH, day)
     }
 }

@@ -10,11 +10,9 @@ class ShiftOwnerPlanMapper: DataMapper<ShiftOwnerPlanDto, ShiftOwnerPlan> {
     override fun fromEntity(entity: ShiftOwnerPlan): ShiftOwnerPlanDto {
 
         return ShiftOwnerPlanDto(
-            planElementList = entity.planElementList.mapValues {
-                it.value.mapValues { planMap ->
-                    planMap.value.map { element ->
-                        planElementMapper.fromEntity(element)
-                    }
+            planElementList = entity.planElementMap.mapValues {
+                it.value.mapValues { plan ->
+                        planElementMapper.fromEntity(plan.value)
                 }
             }
         )
@@ -23,13 +21,11 @@ class ShiftOwnerPlanMapper: DataMapper<ShiftOwnerPlanDto, ShiftOwnerPlan> {
     override fun toEntity(domain: ShiftOwnerPlanDto): ShiftOwnerPlan {
 
         return ShiftOwnerPlan(
-            planElementList = (domain.planElementList?.mapValues {
-                it.value.mapValues { mapElement ->
-                    mapElement.value.map { element ->
-                        planElementMapper.toEntity(element)
-                    }
+            planElementMap = (domain.planElementList?.mapValues {
+                it.value.mapValues { element ->
+                    planElementMapper.toEntity(element.value)
                 }
-            }) as Map<String, Map<String, List<PlanElement>>>
+            }) as Map<String, Map<String, PlanElement>>
         )
     }
 }
