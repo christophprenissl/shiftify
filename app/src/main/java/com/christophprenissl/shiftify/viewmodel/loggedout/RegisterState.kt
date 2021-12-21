@@ -5,7 +5,8 @@ enum class RegisterState {
     EmailNotCorrect,
     PasswordTooSmall,
     PasswordNotMatching,
-    RegistrationSuccessful,
+    RegistrationAsNurseSuccessful,
+    RegistrationAsShiftOwnerSuccessful,
     AuthenticationFailed,
     RegistrationFailed
 }

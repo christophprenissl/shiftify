@@ -87,7 +87,11 @@ class RegisterViewModel : ViewModel() {
                             database.child("users").child(it.uid).setValue(nurseDto)
                                 .addOnSuccessListener {
                                     Timber.i("${nurseDto.firstName} ${nurseDto.lastName} created in database.")
-                                    _registerState.value = RegisterState.RegistrationSuccessful
+                                    if (nurseDto.isShiftOwner == true) {
+                                        _registerState.value = RegisterState.RegistrationAsShiftOwnerSuccessful
+                                    } else if (nurseDto.isShiftOwner == false) {
+                                        _registerState.value = RegisterState.RegistrationAsNurseSuccessful
+                                    }
                                 }
                                 .addOnFailureListener {
                                     _registerState.value = RegisterState.AuthenticationFailed

@@ -38,9 +38,13 @@ class RegisterFragment : Fragment() {
                 RegisterState.PasswordNotMatching -> showSmallInfoToast(context, "Passwords not matching")
                 RegisterState.RegistrationFailed -> showSmallInfoToast(context, "Some error happened, registration could not be completed")
                 RegisterState.AuthenticationFailed -> showSmallInfoToast(context, "Some error happened, registration could not be completed")
-                RegisterState.RegistrationSuccessful -> {
+                RegisterState.RegistrationAsNurseSuccessful -> {
                     showSmallInfoToast(context, "Registration successful")
                     navController.navigate(R.id.action_registerFragment_to_nurseShiftsFragment)
+                }
+                RegisterState.RegistrationAsShiftOwnerSuccessful -> {
+                    showSmallInfoToast(context, "Registration successful")
+                    navController.navigate(R.id.action_registerFragment_to_roleChoiceFragment)
                 }
                 else -> {}
             }
