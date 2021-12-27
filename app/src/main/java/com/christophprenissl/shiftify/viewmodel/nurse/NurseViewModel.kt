@@ -159,13 +159,11 @@ class NurseViewModel: ViewModel() {
     fun addMonth() {
         monthCalendar.add(Calendar.MONTH, 1)
         setupMonthCalendar()
-        createMonthPlanElements()
     }
 
     fun subtractMonth() {
         monthCalendar.add(Calendar.MONTH, -1)
         setupMonthCalendar()
-        createMonthPlanElements()
     }
 
     fun choosePlanElement(index: Int) {
