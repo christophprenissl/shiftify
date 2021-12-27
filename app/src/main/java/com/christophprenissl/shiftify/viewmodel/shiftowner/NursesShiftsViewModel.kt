@@ -30,6 +30,9 @@ class NursesShiftsViewModel: ViewModel() {
     private var usersDatabase: DatabaseReference
     private var shiftOwnerStationValueDatabase: DatabaseReference
 
+    private val _shiftOwnerLoginState = MutableLiveData<ShiftOwnerLoginState>()
+    val shiftOwnerLoginState: LiveData<ShiftOwnerLoginState> = _shiftOwnerLoginState
+
     private val _monthYearText = MutableLiveData<String>()
     val monthYearText: LiveData<String> = _monthYearText
 
@@ -85,6 +88,18 @@ class NursesShiftsViewModel: ViewModel() {
             }
         }
         shiftOwnerStationValueDatabase.addValueEventListener(shiftOwnerListener)
+
+        auth.addAuthStateListener {
+            if (it.currentUser != null) {
+                _shiftOwnerLoginState.value = ShiftOwnerLoginState.USER_LOGGED_IN
+            } else {
+                _shiftOwnerLoginState.value = ShiftOwnerLoginState.USER_LOGGED_OUT
+            }
+        }
+    }
+
+    fun logoutUser() {
+        auth.signOut()
     }
 
     private fun setupMonthCalendar() {

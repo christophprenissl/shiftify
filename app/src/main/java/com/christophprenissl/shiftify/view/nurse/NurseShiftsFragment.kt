@@ -13,7 +13,7 @@ import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentNurseShiftsBinding
 import com.christophprenissl.shiftify.model.entity.PlanElement
 import com.christophprenissl.shiftify.util.WEEK_DAY_COUNT
-import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftsState
+import com.christophprenissl.shiftify.viewmodel.nurse.NurseLoginState
 import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftsViewModel
 import com.christophprenissl.shiftify.viewmodel.nurse.PlanElementListener
 
@@ -38,12 +38,12 @@ class NurseShiftsFragment : Fragment(), PlanElementListener {
         val adapter = NurseShiftPlanAdapter(context, viewModel, this)
         binding.shiftPlan.adapter = adapter
 
-        val nurseShiftsStateObserver = Observer<NurseShiftsState> {
-            if (it == NurseShiftsState.USER_LOGGED_OUT) {
+        val nurseShiftsStateObserver = Observer<NurseLoginState> {
+            if (it == NurseLoginState.USER_LOGGED_OUT) {
                 navController.navigate(R.id.action_nurseShiftsFragment_to_loginFragment)
             }
         }
-        viewModel.nurseShiftsState.observe(viewLifecycleOwner, nurseShiftsStateObserver)
+        viewModel.nurseLoginState.observe(viewLifecycleOwner, nurseShiftsStateObserver)
 
         binding.previousButton.setOnClickListener {
             viewModel.subtractMonth()

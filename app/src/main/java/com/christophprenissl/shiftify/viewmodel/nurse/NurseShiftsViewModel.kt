@@ -30,8 +30,8 @@ class NurseShiftsViewModel: ViewModel() {
     private val _nursePlanMonths = MutableLiveData<HashMap<String,NursePlanMonth>>()
     val nursePlanMonths: LiveData<HashMap<String, NursePlanMonth>> = _nursePlanMonths
 
-    private val _nurseShiftsState = MutableLiveData<NurseShiftsState>()
-    val nurseShiftsState: LiveData<NurseShiftsState> = _nurseShiftsState
+    private val _nurseShiftsState = MutableLiveData<NurseLoginState>()
+    val nurseLoginState: LiveData<NurseLoginState> = _nurseShiftsState
 
     private val _aboutToSavePlanElement = MutableLiveData<PlanElement?>()
     val aboutToSavePlanElement: LiveData<PlanElement?> = _aboutToSavePlanElement
@@ -49,7 +49,7 @@ class NurseShiftsViewModel: ViewModel() {
         setupMonthCalendar()
         createMonthPlanElements()
         if (auth.currentUser != null) {
-            _nurseShiftsState.value = NurseShiftsState.USER_LOGGED_IN
+            _nurseShiftsState.value = NurseLoginState.USER_LOGGED_IN
 
             val userId = auth.currentUser!!.uid
             database = Firebase.database.reference
@@ -71,21 +71,21 @@ class NurseShiftsViewModel: ViewModel() {
             }
             database.addValueEventListener(planElementsListener)
         } else {
-            _nurseShiftsState.value = NurseShiftsState.USER_LOGGED_OUT
+            _nurseShiftsState.value = NurseLoginState.USER_LOGGED_OUT
         }
     }
 
     fun setLoginState() {
         if (auth.currentUser != null) {
-            _nurseShiftsState.value = NurseShiftsState.USER_LOGGED_IN
+            _nurseShiftsState.value = NurseLoginState.USER_LOGGED_IN
         } else {
-            _nurseShiftsState.value = NurseShiftsState.USER_LOGGED_OUT
+            _nurseShiftsState.value = NurseLoginState.USER_LOGGED_OUT
         }
     }
 
     fun logoutUser() {
         auth.signOut()
-        _nurseShiftsState.value = NurseShiftsState.USER_LOGGED_OUT
+        _nurseShiftsState.value = NurseLoginState.USER_LOGGED_OUT
     }
 
     private fun setupMonthCalendar() {

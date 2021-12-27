@@ -67,6 +67,11 @@
         <action
             android:id="@+id/action_roleChoiceFragment_to_nurseShiftsFragment"
             app:destination="@id/nurseShiftsFragment" />
+        <action
+            android:id="@+id/action_roleChoiceFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/stationFragment"
@@ -87,6 +92,11 @@
         <action
             android:id="@+id/action_nursesShiftsFragment_to_shiftOwnerPlanDetailFragment"
             app:destination="@id/shiftOwnerPlanDetailFragment" />
+        <action
+            android:id="@+id/action_nursesShiftsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/createPollEntityFragment"
@@ -113,5 +123,11 @@
         android:id="@+id/shiftOwnerPlanDetailFragment"
         android:name="com.christophprenissl.shiftify.view.shiftowner.ShiftOwnerPlanDetailFragment"
         android:label="fragment_shift_owner_plan_detail"
-        tools:layout="@layout/fragment_shift_owner_plan_detail" />
+        tools:layout="@layout/fragment_shift_owner_plan_detail" >
+        <action
+            android:id="@+id/action_shiftOwnerPlanDetailFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
