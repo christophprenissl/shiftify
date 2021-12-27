@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentShiftOwnerPlanDetailBinding
 import com.christophprenissl.shiftify.util.dayMonthYearString
+import com.christophprenissl.shiftify.view.shiftowner.adapter.ShiftOwnerPlanDetailAdapter
 import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerViewModel
-import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerLoginState
+import com.christophprenissl.shiftify.viewmodel.shiftowner.state.ShiftOwnerLoginState
 
 class ShiftOwnerPlanDetailFragment: Fragment() {
 

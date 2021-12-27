@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify.viewmodel.loggedout
+package com.christophprenissl.shiftify.viewmodel.loggedout.state
 
 enum class RegisterState {
     InputMissing,

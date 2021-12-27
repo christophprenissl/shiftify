@@ -9,6 +9,7 @@ import com.christophprenissl.shiftify.model.entity.ShiftOwnerPlan
 import com.christophprenissl.shiftify.util.dayMonthYearString
 import com.christophprenissl.shiftify.util.mapper.NurseMapper
 import com.christophprenissl.shiftify.util.monthYearString
+import com.christophprenissl.shiftify.viewmodel.shiftowner.state.ShiftOwnerLoginState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

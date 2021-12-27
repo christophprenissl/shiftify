@@ -21,11 +21,11 @@ import com.christophprenissl.shiftify.databinding.CardShiftBinding
 import com.christophprenissl.shiftify.databinding.FragmentPriorityBinding
 import com.christophprenissl.shiftify.model.entity.PlanElement
 import com.christophprenissl.shiftify.util.*
-import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftsViewModel
+import com.christophprenissl.shiftify.viewmodel.nurse.NurseViewModel
 
 class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
 
-    private val viewModel: NurseShiftsViewModel by activityViewModels()
+    private val viewModel: NurseViewModel by activityViewModels()
     private lateinit var binding: FragmentPriorityBinding
     private lateinit var navController: NavController
 

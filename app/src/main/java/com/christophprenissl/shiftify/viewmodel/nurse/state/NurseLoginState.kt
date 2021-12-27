@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify.viewmodel.nurse
+package com.christophprenissl.shiftify.viewmodel.nurse.state
 
 enum class NurseLoginState {
     USER_LOGGED_IN,

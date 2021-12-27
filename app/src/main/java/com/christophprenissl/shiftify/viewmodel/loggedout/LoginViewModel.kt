@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.christophprenissl.shiftify.util.isMatchingEmailAddress
+import com.christophprenissl.shiftify.viewmodel.loggedout.state.LoginState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase

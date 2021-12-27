@@ -1,5 +1,5 @@
 package com.christophprenissl.shiftify.viewmodel.nurse
 
-interface PlanElementListener {
+interface NurseShiftPlanElementClickListener {
     fun onPlanElementClick(index: Int)
 }

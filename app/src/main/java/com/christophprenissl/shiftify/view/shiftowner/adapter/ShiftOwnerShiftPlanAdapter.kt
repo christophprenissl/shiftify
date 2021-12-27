@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify.view.shiftowner
+package com.christophprenissl.shiftify.view.shiftowner.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,13 +9,13 @@ import com.christophprenissl.shiftify.databinding.CardShiftOwnerShiftPlanCellBin
 import com.christophprenissl.shiftify.util.daysInTimeToMillis
 import com.christophprenissl.shiftify.util.isInSameMonthAs
 import com.christophprenissl.shiftify.util.isSameDayAs
-import com.christophprenissl.shiftify.viewmodel.nurse.PlanElementListener
+import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftPlanElementClickListener
 import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerViewModel
 import java.util.*
 
 class ShiftOwnerShiftPlanAdapter constructor(private val context: Context?,
                                              private val viewModel: ShiftOwnerViewModel,
-                                             private val onClick: PlanElementListener) : RecyclerView.Adapter<ShiftOwnerShiftPlanAdapter.ViewHolder>() {
+                                             private val onClick: NurseShiftPlanElementClickListener) : RecyclerView.Adapter<ShiftOwnerShiftPlanAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = CardShiftOwnerShiftPlanCellBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -69,7 +69,7 @@ class ShiftOwnerShiftPlanAdapter constructor(private val context: Context?,
                      private val context: Context?) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(planElementIndex: Int?, dateText: String, isInCurrentMonth: Boolean, isActive: Boolean = false,
-                 onClick: PlanElementListener?) {
+                 onClick: NurseShiftPlanElementClickListener?) {
 
             binding.weekDayText.text = dateText
             if (isActive && context != null) {

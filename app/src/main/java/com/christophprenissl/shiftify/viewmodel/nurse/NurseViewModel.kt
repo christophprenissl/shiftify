@@ -7,6 +7,7 @@ import com.christophprenissl.shiftify.model.dto.NursePlanMonthDto
 import com.christophprenissl.shiftify.model.entity.*
 import com.christophprenissl.shiftify.util.*
 import com.christophprenissl.shiftify.util.mapper.NursePlanMonthMapper
+import com.christophprenissl.shiftify.viewmodel.nurse.state.NurseLoginState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -17,7 +18,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class NurseShiftsViewModel: ViewModel() {
+class NurseViewModel: ViewModel() {
 
     private val planMonthMapper = NursePlanMonthMapper()
     private val auth = FirebaseAuth.getInstance()

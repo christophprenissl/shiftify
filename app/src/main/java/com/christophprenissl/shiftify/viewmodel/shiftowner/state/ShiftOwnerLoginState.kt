@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify.viewmodel.shiftowner
+package com.christophprenissl.shiftify.viewmodel.shiftowner.state
 
 enum class ShiftOwnerLoginState {
     USER_LOGGED_IN,

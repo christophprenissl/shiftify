@@ -1,4 +1,4 @@
-package com.christophprenissl.shiftify.view.nurse
+package com.christophprenissl.shiftify.view.nurse.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,13 +9,13 @@ import com.christophprenissl.shiftify.databinding.CardNurseShiftPlanCellBinding
 import com.christophprenissl.shiftify.util.daysInTimeToMillis
 import com.christophprenissl.shiftify.util.isInSameMonthAs
 import com.christophprenissl.shiftify.util.isSameDayAs
-import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftsViewModel
-import com.christophprenissl.shiftify.viewmodel.nurse.PlanElementListener
+import com.christophprenissl.shiftify.viewmodel.nurse.NurseViewModel
+import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftPlanElementClickListener
 import java.util.*
 
 class NurseShiftPlanAdapter constructor(private val context: Context?,
-                                        private val viewModel: NurseShiftsViewModel,
-                                        private val onClick: PlanElementListener) : RecyclerView.Adapter<NurseShiftPlanAdapter.ViewHolder>() {
+                                        private val viewModel: NurseViewModel,
+                                        private val onClick: NurseShiftPlanElementClickListener) : RecyclerView.Adapter<NurseShiftPlanAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = CardNurseShiftPlanCellBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -69,7 +69,7 @@ class NurseShiftPlanAdapter constructor(private val context: Context?,
                      private val context: Context?) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(planElementIndex: Int?, dateText: String, isInCurrentMonth: Boolean, isActive: Boolean = false,
-                 onClick: PlanElementListener?) {
+                 onClick: NurseShiftPlanElementClickListener?) {
 
             binding.weekDayText.text = dateText
             if (isActive && context != null) {

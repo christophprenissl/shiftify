@@ -12,9 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentRegisterBinding
 import com.christophprenissl.shiftify.util.showSmallInfoToast
-import com.christophprenissl.shiftify.viewmodel.loggedout.RegisterState
+import com.christophprenissl.shiftify.viewmodel.loggedout.state.RegisterState
 import com.christophprenissl.shiftify.viewmodel.loggedout.RegisterViewModel
-import com.christophprenissl.shiftify.viewmodel.loggedout.RegisterViewState
+import com.christophprenissl.shiftify.viewmodel.loggedout.state.RegisterViewState
 
 class RegisterFragment : Fragment() {
 

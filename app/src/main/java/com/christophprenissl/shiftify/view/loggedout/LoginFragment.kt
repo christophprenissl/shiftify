@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentLoginBinding
 import com.christophprenissl.shiftify.util.showSmallInfoToast
-import com.christophprenissl.shiftify.viewmodel.loggedout.LoginState
+import com.christophprenissl.shiftify.viewmodel.loggedout.state.LoginState
 import com.christophprenissl.shiftify.viewmodel.loggedout.LoginViewModel
 
 class LoginFragment : Fragment() {

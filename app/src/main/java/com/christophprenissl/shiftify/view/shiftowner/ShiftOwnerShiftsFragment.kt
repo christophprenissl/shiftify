@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentNursesShiftsBinding
 import com.christophprenissl.shiftify.util.WEEK_DAY_COUNT
-import com.christophprenissl.shiftify.viewmodel.nurse.PlanElementListener
+import com.christophprenissl.shiftify.view.shiftowner.adapter.ShiftOwnerShiftPlanAdapter
+import com.christophprenissl.shiftify.viewmodel.nurse.NurseShiftPlanElementClickListener
 import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerViewModel
-import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerLoginState
+import com.christophprenissl.shiftify.viewmodel.shiftowner.state.ShiftOwnerLoginState
 
-class ShiftOwnerShiftsFragment : Fragment(), PlanElementListener {
+class ShiftOwnerShiftsFragment : Fragment(), NurseShiftPlanElementClickListener {
 
     private val viewModel: ShiftOwnerViewModel by activityViewModels()
     private lateinit var navController: NavController

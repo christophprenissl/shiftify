@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentRoleChoiceBinding
 import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerViewModel
-import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerLoginState
+import com.christophprenissl.shiftify.viewmodel.shiftowner.state.ShiftOwnerLoginState
 
 class RoleChoiceFragment : Fragment() {
 
