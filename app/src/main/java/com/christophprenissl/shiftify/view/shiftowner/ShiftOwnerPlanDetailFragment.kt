@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentShiftOwnerPlanDetailBinding
 import com.christophprenissl.shiftify.util.dayMonthYearString
-import com.christophprenissl.shiftify.viewmodel.shiftowner.NursesShiftsViewModel
+import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerViewModel
 import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerLoginState
 
 class ShiftOwnerPlanDetailFragment: Fragment() {
 
-    val viewModel: NursesShiftsViewModel by activityViewModels()
+    val viewModel: ShiftOwnerViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

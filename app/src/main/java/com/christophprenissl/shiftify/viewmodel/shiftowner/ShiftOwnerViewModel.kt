@@ -20,7 +20,7 @@ import com.google.firebase.ktx.Firebase
 import timber.log.Timber.w
 import java.util.*
 
-class NursesShiftsViewModel: ViewModel() {
+class ShiftOwnerViewModel: ViewModel() {
 
     private val nurseMapper = NurseMapper()
 

@@ -80,7 +80,7 @@
         tools:layout="@layout/fragment_station" />
     <fragment
         android:id="@+id/nursesShiftsFragment"
-        android:name="com.christophprenissl.shiftify.view.shiftowner.NursesShiftsFragment"
+        android:name="com.christophprenissl.shiftify.view.shiftowner.ShiftOwnerShiftsFragment"
         android:label="fragment_nurses_shifts"
         tools:layout="@layout/fragment_nurses_shifts" >
         <action

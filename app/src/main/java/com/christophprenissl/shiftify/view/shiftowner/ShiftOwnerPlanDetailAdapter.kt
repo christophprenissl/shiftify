@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.CardDayPlanPrioritiesBinding
 import com.christophprenissl.shiftify.util.dayMonthYearString
-import com.christophprenissl.shiftify.viewmodel.shiftowner.NursesShiftsViewModel
+import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerViewModel
 
 class ShiftOwnerPlanDetailAdapter constructor(private val context: Context?,
-                                             private val viewModel: NursesShiftsViewModel,
+                                              private val viewModel: ShiftOwnerViewModel,
 ) : RecyclerView.Adapter<ShiftOwnerPlanDetailAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

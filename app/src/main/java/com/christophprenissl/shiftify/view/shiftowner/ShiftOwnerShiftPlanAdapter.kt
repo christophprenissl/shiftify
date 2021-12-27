@@ -10,12 +10,12 @@ import com.christophprenissl.shiftify.util.daysInTimeToMillis
 import com.christophprenissl.shiftify.util.isInSameMonthAs
 import com.christophprenissl.shiftify.util.isSameDayAs
 import com.christophprenissl.shiftify.viewmodel.nurse.PlanElementListener
-import com.christophprenissl.shiftify.viewmodel.shiftowner.NursesShiftsViewModel
+import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerViewModel
 import java.util.*
 
 class ShiftOwnerShiftPlanAdapter constructor(private val context: Context?,
-                                   private val viewModel: NursesShiftsViewModel,
-                                   private val onClick: PlanElementListener) : RecyclerView.Adapter<ShiftOwnerShiftPlanAdapter.ViewHolder>() {
+                                             private val viewModel: ShiftOwnerViewModel,
+                                             private val onClick: PlanElementListener) : RecyclerView.Adapter<ShiftOwnerShiftPlanAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = CardShiftOwnerShiftPlanCellBinding.inflate(LayoutInflater.from(parent.context), parent, false)

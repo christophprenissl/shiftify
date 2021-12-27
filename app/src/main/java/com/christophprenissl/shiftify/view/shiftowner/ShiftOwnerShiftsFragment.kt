@@ -13,12 +13,12 @@ import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentNursesShiftsBinding
 import com.christophprenissl.shiftify.util.WEEK_DAY_COUNT
 import com.christophprenissl.shiftify.viewmodel.nurse.PlanElementListener
-import com.christophprenissl.shiftify.viewmodel.shiftowner.NursesShiftsViewModel
+import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerViewModel
 import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerLoginState
 
-class NursesShiftsFragment : Fragment(), PlanElementListener {
+class ShiftOwnerShiftsFragment : Fragment(), PlanElementListener {
 
-    private val viewModel: NursesShiftsViewModel by activityViewModels()
+    private val viewModel: ShiftOwnerViewModel by activityViewModels()
     private lateinit var navController: NavController
 
     @SuppressLint("NotifyDataSetChanged")

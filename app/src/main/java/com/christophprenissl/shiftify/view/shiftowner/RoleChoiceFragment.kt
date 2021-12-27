@@ -8,12 +8,12 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentRoleChoiceBinding
-import com.christophprenissl.shiftify.viewmodel.shiftowner.NursesShiftsViewModel
+import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerViewModel
 import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerLoginState
 
 class RoleChoiceFragment : Fragment() {
 
-    private val viewModel: NursesShiftsViewModel by activityViewModels()
+    private val viewModel: ShiftOwnerViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
