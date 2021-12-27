@@ -54,9 +54,9 @@ class RegisterFragment : Fragment() {
 
         val registerViewStateObserver = Observer<RegisterViewState> {
             if (it.isShiftOwner) {
-                binding.stationIdLabel.text = "Station name"
+                binding.stationIdLabel.text = getString(R.string.station_name_label)
             } else {
-                binding.stationIdLabel.text = "Station code"
+                binding.stationIdLabel.text = getString(R.string.station_code_label)
             }
         }
 

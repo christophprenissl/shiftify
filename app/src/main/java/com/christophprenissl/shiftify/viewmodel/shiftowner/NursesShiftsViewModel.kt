@@ -90,7 +90,18 @@ class NursesShiftsViewModel: ViewModel() {
     private fun setupMonthCalendar() {
         monthCalendar.firstDayOfWeek = Calendar.MONDAY
         monthCalendar.set(Calendar.DAY_OF_MONTH, 1)
+        chosenDayCalendar.set(Calendar.MONTH, monthCalendar.get(Calendar.MONTH))
         _monthYearText.value = monthCalendar.monthYearString()
+    }
+
+    fun addMonth() {
+        monthCalendar.add(Calendar.MONTH, 1)
+        setupMonthCalendar()
+    }
+
+    fun subtractMonth() {
+        monthCalendar.add(Calendar.MONTH, -1)
+        setupMonthCalendar()
     }
 
     fun setChosenDayCalendar(day: Int) {
