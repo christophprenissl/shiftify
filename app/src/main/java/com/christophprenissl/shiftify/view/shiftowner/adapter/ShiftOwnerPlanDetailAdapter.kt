@@ -21,8 +21,9 @@ class ShiftOwnerPlanDetailAdapter constructor(private val context: Context?,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val nurseName = viewModel.shiftOwnerPlan.value?.planElementMap?.keys?.toList()?.get(position)
+        val dayString = viewModel.chosenDayCalendar.dayMonthYearString()
         val nurseDayPlanPriorities = viewModel.shiftOwnerPlan.value?.planElementMap?.get(nurseName)
-            ?.get(viewModel.currentDayCalendar.dayMonthYearString())?.priorityMap
+            ?.get(dayString)?.priorityMap
         if (nurseDayPlanPriorities != null) {
             context?.let { c ->
                 val earlyPriority = nurseDayPlanPriorities[c.getString(R.string.early_shift)] ?: 2

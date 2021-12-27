@@ -107,6 +107,7 @@ class ShiftOwnerViewModel: ViewModel() {
         monthCalendar.firstDayOfWeek = Calendar.MONDAY
         monthCalendar.set(Calendar.DAY_OF_MONTH, 1)
         chosenDayCalendar.set(Calendar.MONTH, monthCalendar.get(Calendar.MONTH))
+        chosenDayCalendar.set(Calendar.YEAR, monthCalendar.get(Calendar.YEAR))
         _monthYearText.value = monthCalendar.monthYearString()
     }
 
