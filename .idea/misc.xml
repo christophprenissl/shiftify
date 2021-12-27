@@ -4,13 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.20277777777777778" />
+        <entry key="app/src/main/res/layout-v28/card_shift.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/activity_logged_out.xml" value="0.32708333333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_nurse.xml" value="0.32708333333333334" />
         <entry key="app/src/main/res/layout/activity_shift_owner.xml" value="0.1765625" />
         <entry key="app/src/main/res/layout/card_day_plan_priorities.xml" value="0.21965579710144928" />
         <entry key="app/src/main/res/layout/card_nurse_shift_plan_cell.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/card_shift.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/card_shift.xml" value="1.0" />
         <entry key="app/src/main/res/layout/card_shift_owner_shift_plan_cell.xml" value="0.335" />
         <entry key="app/src/main/res/layout/card_shift_plan_cell.xml" value="0.335" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.178125" />

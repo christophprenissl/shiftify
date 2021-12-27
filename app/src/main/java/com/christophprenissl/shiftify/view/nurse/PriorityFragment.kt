@@ -22,6 +22,7 @@ import com.christophprenissl.shiftify.databinding.FragmentPriorityBinding
 import com.christophprenissl.shiftify.model.entity.PlanElement
 import com.christophprenissl.shiftify.util.*
 import com.christophprenissl.shiftify.viewmodel.nurse.NurseViewModel
+import com.google.android.material.card.MaterialCardView
 
 class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
 
@@ -137,7 +138,7 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
                     //when dropped inside the layout
                     v?.invalidate()
 
-                    val eventView = event.localState as View
+                    val eventView = event.localState as MaterialCardView
                     val owner = eventView.parent as ViewGroup
                     owner.removeView(eventView)
 
@@ -153,7 +154,7 @@ class PriorityFragment : Fragment(), View.OnLongClickListener, OnDragListener {
                 }
                 DragEvent.ACTION_DRAG_ENDED -> {
                     //always execute when drag ended
-                    val draggedView = event.localState as View
+                    val draggedView = event.localState as MaterialCardView
                     draggedView.visibility = VISIBLE
                     v?.invalidate()
                     return true
