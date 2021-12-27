@@ -29,7 +29,6 @@ class NurseViewModel: ViewModel() {
     val monthYear: LiveData<String> = _monthYearText
 
     private val _nursePlanMonths = MutableLiveData<HashMap<String,NursePlanMonth>>()
-    val nursePlanMonths: LiveData<HashMap<String, NursePlanMonth>> = _nursePlanMonths
 
     private val _nurseShiftsState = MutableLiveData<NurseLoginState>()
     val nurseLoginState: LiveData<NurseLoginState> = _nurseShiftsState
