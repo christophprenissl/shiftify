@@ -24,7 +24,7 @@ class NurseShiftPlanAdapter constructor(private val context: Context?,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val lastIndex = viewModel.getMonthPlanList().lastIndex
+        val lastIndex = viewModel.monthCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) - 1
         val dayOfWeek = when(viewModel.monthCalendar.get(Calendar.DAY_OF_WEEK)) {
             Calendar.SUNDAY -> 7
             else -> viewModel.monthCalendar.get(Calendar.DAY_OF_WEEK) - 1

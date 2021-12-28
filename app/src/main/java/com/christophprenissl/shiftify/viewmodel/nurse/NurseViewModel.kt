@@ -153,11 +153,19 @@ class NurseViewModel: ViewModel() {
     fun addMonth() {
         monthCalendar.add(Calendar.MONTH, 1)
         initializeMonthCalendar()
+
+        if (_nursePlanMonths.value!![_monthYearText.value!!] == null) {
+            createMonthPlanElements()
+        }
     }
 
     fun subtractMonth() {
         monthCalendar.add(Calendar.MONTH, -1)
         initializeMonthCalendar()
+
+        if (_nursePlanMonths.value!![_monthYearText.value!!] == null) {
+            createMonthPlanElements()
+        }
     }
 
     fun choosePlanElement(index: Int) {
@@ -214,7 +222,7 @@ class NurseViewModel: ViewModel() {
         }
     }
 
-    fun getMonthPlanList(): List<PlanElement> {
+    private fun getMonthPlanList(): List<PlanElement> {
         return _nursePlanMonths.value!![_monthYearText.value]!!.planElementList
     }
 }
