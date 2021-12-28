@@ -47,13 +47,10 @@ class NurseViewModel: ViewModel() {
 
     init {
         initializeMonthCalendar()
-        createMonthPlanElements()
         if (auth.currentUser != null) {
-
-            val userId = auth.currentUser!!.uid
-            database = Firebase.database.reference
-                .child("users").child(userId).child("planMonths")
-
+            createMonthPlanElements()
+        }
+        auth.addAuthStateListener {
             val planElementsListener = object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val planMonths = dataSnapshot.getValue<Map<String, NursePlanMonthDto>>()
@@ -68,13 +65,18 @@ class NurseViewModel: ViewModel() {
                     i("$databaseError")
                 }
             }
-            database.addValueEventListener(planElementsListener)
-        }
-        auth.addAuthStateListener {
+
             if (it.currentUser != null) {
                 _nurseLoginState.value = NurseLoginState.USER_LOGGED_IN
+                val userId = it.currentUser!!.uid
+                database = Firebase.database.reference
+                    .child("users").child(userId).child("planMonths")
+                createMonthPlanElements()
+
+                database.addValueEventListener(planElementsListener)
             } else {
                 _nurseLoginState.value = NurseLoginState.USER_LOGGED_OUT
+                database.removeEventListener(planElementsListener)
             }
         }
     }
