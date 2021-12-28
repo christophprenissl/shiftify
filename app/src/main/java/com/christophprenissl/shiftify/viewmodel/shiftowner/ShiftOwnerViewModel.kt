@@ -28,8 +28,8 @@ class ShiftOwnerViewModel: ViewModel() {
     private val _shiftOwnerStationValue = MutableLiveData<String>()
 
     private val auth = FirebaseAuth.getInstance()
-    private var usersDatabase: DatabaseReference
-    private var shiftOwnerStationValueDatabase: DatabaseReference
+    private lateinit var usersDatabase: DatabaseReference
+    private lateinit var shiftOwnerStationValueDatabase: DatabaseReference
 
     private val _shiftOwnerLoginState = MutableLiveData<ShiftOwnerLoginState>()
     val shiftOwnerLoginState: LiveData<ShiftOwnerLoginState> = _shiftOwnerLoginState
@@ -45,50 +45,54 @@ class ShiftOwnerViewModel: ViewModel() {
     var chosenDayCalendar: Calendar = Calendar.getInstance()
 
     init {
-        setupMonthCalendar()
-        shiftOwnerStationValueDatabase = Firebase.database.reference.child("users")
-            .child(auth.currentUser!!.uid)
-            .child("stationValue")
+        if (auth.currentUser != null) {
+            setupMonthCalendar()
+            shiftOwnerStationValueDatabase = Firebase.database.reference.child("users")
+                .child(auth.currentUser!!.uid)
+                .child("stationValue")
 
-        usersDatabase = Firebase.database.reference.child("users")
-        val plansListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val nursesMap = dataSnapshot.getValue<Map<String, NurseDto>>()?.filter {
-                    it.value.stationValue == _shiftOwnerStationValue.value
-                } ?. mapValues {
-                   nurseMapper.toEntity(it.value)
-                }
-
-                val planElementMap: MutableMap<String, Map<String, PlanElement>> = mutableMapOf()
-                nursesMap?.forEach {
-                    val nursePlanMap: MutableMap<String, PlanElement> = mutableMapOf()
-                    it.value.nursePlanMonths.map { month ->
-                        for (element in month.value.planElementList) {
-                            nursePlanMap[element.date.dayMonthYearString()] = element
-                        }
+            usersDatabase = Firebase.database.reference.child("users")
+            val plansListener = object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val nursesMap = dataSnapshot.getValue<Map<String, NurseDto>>()?.filter {
+                        it.value.stationValue == _shiftOwnerStationValue.value
+                    } ?. mapValues {
+                        nurseMapper.toEntity(it.value)
                     }
-                    planElementMap[it.value.firstName + " " + it.value.lastName] = nursePlanMap
+
+                    val planElementMap: MutableMap<String, Map<String, PlanElement>> = mutableMapOf()
+                    nursesMap?.forEach {
+                        val nursePlanMap: MutableMap<String, PlanElement> = mutableMapOf()
+                        it.value.nursePlanMonths.map { month ->
+                            for (element in month.value.planElementList) {
+                                val dayString = element.date.dayMonthYearString()
+                                nursePlanMap[dayString] = element
+                            }
+                        }
+                        val name = it.value.firstName + " " + it.value.lastName
+                        planElementMap[name] = nursePlanMap
+                    }
+
+                    _shiftOwnerPlan.value = ShiftOwnerPlan(planElementMap)
                 }
 
-                _shiftOwnerPlan.value = ShiftOwnerPlan(planElementMap)
+                override fun onCancelled(databaseError: DatabaseError) {
+                    w(databaseError.message)
+                }
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                w(databaseError.message)
+            val shiftOwnerListener = object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    _shiftOwnerStationValue.value = dataSnapshot.getValue<String>()
+                    usersDatabase.addValueEventListener(plansListener)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    w(databaseError.message)
+                }
             }
+            shiftOwnerStationValueDatabase.addValueEventListener(shiftOwnerListener)
         }
-
-        val shiftOwnerListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                _shiftOwnerStationValue.value = dataSnapshot.getValue<String>()
-                usersDatabase.addValueEventListener(plansListener)
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                w(databaseError.message)
-            }
-        }
-        shiftOwnerStationValueDatabase.addValueEventListener(shiftOwnerListener)
 
         auth.addAuthStateListener {
             if (it.currentUser != null) {

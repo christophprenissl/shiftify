@@ -30,8 +30,8 @@ class NurseViewModel: ViewModel() {
 
     private val _nursePlanMonths = MutableLiveData<HashMap<String,NursePlanMonth>>()
 
-    private val _nurseShiftsState = MutableLiveData<NurseLoginState>()
-    val nurseLoginState: LiveData<NurseLoginState> = _nurseShiftsState
+    private val _nurseLoginState = MutableLiveData<NurseLoginState>()
+    val nurseLoginState: LiveData<NurseLoginState> = _nurseLoginState
 
     private val _aboutToSavePlanElement = MutableLiveData<PlanElement?>()
     val aboutToSavePlanElement: LiveData<PlanElement?> = _aboutToSavePlanElement
@@ -46,10 +46,9 @@ class NurseViewModel: ViewModel() {
         }
 
     init {
-        setupMonthCalendar()
+        initializeMonthCalendar()
         createMonthPlanElements()
         if (auth.currentUser != null) {
-            _nurseShiftsState.value = NurseLoginState.USER_LOGGED_IN
 
             val userId = auth.currentUser!!.uid
             database = Firebase.database.reference
@@ -70,25 +69,21 @@ class NurseViewModel: ViewModel() {
                 }
             }
             database.addValueEventListener(planElementsListener)
-        } else {
-            _nurseShiftsState.value = NurseLoginState.USER_LOGGED_OUT
         }
-    }
-
-    fun setLoginState() {
-        if (auth.currentUser != null) {
-            _nurseShiftsState.value = NurseLoginState.USER_LOGGED_IN
-        } else {
-            _nurseShiftsState.value = NurseLoginState.USER_LOGGED_OUT
+        auth.addAuthStateListener {
+            if (it.currentUser != null) {
+                _nurseLoginState.value = NurseLoginState.USER_LOGGED_IN
+            } else {
+                _nurseLoginState.value = NurseLoginState.USER_LOGGED_OUT
+            }
         }
     }
 
     fun logoutUser() {
         auth.signOut()
-        _nurseShiftsState.value = NurseLoginState.USER_LOGGED_OUT
     }
 
-    private fun setupMonthCalendar() {
+    private fun initializeMonthCalendar() {
         monthCalendar.firstDayOfWeek = Calendar.MONDAY
         monthCalendar.set(Calendar.DAY_OF_MONTH, 1)
         _monthYearText.value = monthCalendar.monthYearString()
@@ -157,12 +152,12 @@ class NurseViewModel: ViewModel() {
 
     fun addMonth() {
         monthCalendar.add(Calendar.MONTH, 1)
-        setupMonthCalendar()
+        initializeMonthCalendar()
     }
 
     fun subtractMonth() {
         monthCalendar.add(Calendar.MONTH, -1)
-        setupMonthCalendar()
+        initializeMonthCalendar()
     }
 
     fun choosePlanElement(index: Int) {
@@ -190,8 +185,10 @@ class NurseViewModel: ViewModel() {
     }
 
     private fun setAboutToSavePlanElement() {
-        _aboutToSavePlanElement.value =
-            _nursePlanMonths.value!![_monthYearText.value]!!.planElementList[chosenIdx].getDeepCopy()
+        if (_nursePlanMonths.value != null && _monthYearText.value != null) {
+            _aboutToSavePlanElement.value = _nursePlanMonths.value!![_monthYearText.value]!!
+                .planElementList[chosenIdx].getDeepCopy()
+        }
     }
 
     fun setShiftAndPriority(shiftTitle: String, priorityTitle: String) {

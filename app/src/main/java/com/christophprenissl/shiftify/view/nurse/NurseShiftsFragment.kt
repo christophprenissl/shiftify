@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.christophprenissl.shiftify.R
-import com.christophprenissl.shiftify.databinding.FragmentNurseShiftsBinding
+import com.christophprenissl.shiftify.databinding.FragmentShiftOwnerShiftsBinding
 import com.christophprenissl.shiftify.model.entity.PlanElement
 import com.christophprenissl.shiftify.util.WEEK_DAY_COUNT
 import com.christophprenissl.shiftify.view.nurse.adapter.NurseShiftPlanAdapter
@@ -30,7 +30,7 @@ class NurseShiftsFragment : Fragment(), NurseShiftPlanElementClickListener {
     ): View {
         setHasOptionsMenu(true)
 
-        val binding = FragmentNurseShiftsBinding.inflate(inflater, container, false)
+        val binding = FragmentShiftOwnerShiftsBinding.inflate(inflater, container, false)
         navController = findNavController()
 
         viewModel.unChooseElement()
@@ -66,8 +66,6 @@ class NurseShiftsFragment : Fragment(), NurseShiftPlanElementClickListener {
             }
         }
         viewModel.aboutToSavePlanElement.observe(viewLifecycleOwner, chosenDayObserver)
-
-        viewModel.setLoginState()
 
         return binding.root
     }

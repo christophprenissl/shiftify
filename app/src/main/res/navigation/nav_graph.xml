@@ -43,7 +43,7 @@
         android:id="@+id/nurseShiftsFragment"
         android:name="com.christophprenissl.shiftify.view.nurse.NurseShiftsFragment"
         android:label="fragment_nurse_shifts"
-        tools:layout="@layout/fragment_nurse_shifts" >
+        tools:layout="@layout/fragment_shift_owner_shifts" >
         <action
             android:id="@+id/action_nurseShiftsFragment_to_stationFragment"
             app:destination="@id/stationFragment" />
