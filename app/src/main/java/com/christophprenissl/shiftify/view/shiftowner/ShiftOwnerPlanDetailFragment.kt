@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.christophprenissl.shiftify.R
 import com.christophprenissl.shiftify.databinding.FragmentShiftOwnerPlanDetailBinding
+import com.christophprenissl.shiftify.model.entity.ShiftOwnerPlan
 import com.christophprenissl.shiftify.util.dayMonthYearString
 import com.christophprenissl.shiftify.view.shiftowner.adapter.ShiftOwnerPlanDetailAdapter
 import com.christophprenissl.shiftify.viewmodel.shiftowner.ShiftOwnerViewModel
@@ -26,7 +27,13 @@ class ShiftOwnerPlanDetailFragment: Fragment() {
         val binding = FragmentShiftOwnerPlanDetailBinding.inflate(inflater, container, false)
         binding.dayMonthYear.text = viewModel.chosenDayCalendar.dayMonthYearString()
         binding.prioritiesList.layoutManager = LinearLayoutManager(context)
-        binding.prioritiesList.adapter = ShiftOwnerPlanDetailAdapter(context, viewModel)
+        val adapter = ShiftOwnerPlanDetailAdapter(context, viewModel)
+        binding.prioritiesList.adapter = adapter
+
+        val shiftOwnerPlanObserver = Observer<ShiftOwnerPlan> {
+            adapter.updateDataset()
+        }
+        viewModel.shiftOwnerPlan.observe(viewLifecycleOwner, shiftOwnerPlanObserver)
 
         val navController = findNavController()
 

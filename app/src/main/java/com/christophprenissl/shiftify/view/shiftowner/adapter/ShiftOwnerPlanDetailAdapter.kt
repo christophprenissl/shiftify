@@ -1,5 +1,6 @@
 package com.christophprenissl.shiftify.view.shiftowner.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -40,6 +41,11 @@ class ShiftOwnerPlanDetailAdapter constructor(private val context: Context?,
     }
 
     override fun getItemCount(): Int = viewModel.shiftOwnerPlan.value?.planElementMap?.size?: 0
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateDataset() {
+        this.notifyDataSetChanged()
+    }
 
     class ViewHolder(private val binding: CardDayPlanPrioritiesBinding,
                      private val context: Context?) : RecyclerView.ViewHolder(binding.root) {
